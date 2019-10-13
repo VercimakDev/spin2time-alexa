@@ -7,7 +7,13 @@ import java.sql.Statement;
 
 public class main {
 
+    /*
+    This class is for test purposes only
+    This class willbe removed after finishing the development of the Alexa skill
+     */
+
     public static void main(String [] args){
+
         try{
             Class.forName("com.mysql.cj.jdbc.Driver");
             Connection con = DriverManager.getConnection(
