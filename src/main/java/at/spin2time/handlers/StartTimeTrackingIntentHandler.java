@@ -12,21 +12,27 @@ import static com.amazon.ask.request.Predicates.intentName;
 public class StartTimeTrackingIntentHandler implements IntentRequestHandler {
 
     private Connection con;
+    private String queryResult = "";
 
     private void connect(){
         try{
             Class.forName("com.mysql.cj.jdbc.Driver");
-            con = DriverManager.getConnection(
+            Connection con = DriverManager.getConnection(
                     "jdbc:mysql://spin2timedb.cyadrtpulaz9.eu-west-1.rds.amazonaws.com:3306/spin2timedb","admin","spin2time");
+            Statement stmt = con.createStatement();
+            ResultSet rs = stmt.executeQuery("select p_name from p_projects");
+            while(rs.next())
+                queryResult += (rs.getString(1));
+            con.close();
         }
         catch (Exception e){
-            System.out.println(e);
+            System.out.println("NullPointer Exception ensteht bei der connect methode");
         }
     }
 
     //Method only is only a template for the future insert method
     //Method useless, only for test purposes
-    private String getProjects(Connection con){
+    /*private String getProjects(Connection con){
         StringBuilder res = null;
         try{
             Statement stmt = con.createStatement();
@@ -39,7 +45,7 @@ public class StartTimeTrackingIntentHandler implements IntentRequestHandler {
         catch (Exception e){
             return e.toString();
         }
-    }
+    }*/
 
     @Override
     public boolean canHandle(HandlerInput input, IntentRequest intentRequest) {
@@ -58,12 +64,8 @@ public class StartTimeTrackingIntentHandler implements IntentRequestHandler {
 
 
         try{
-            String res = getProjects(con);
-            String dbtest = "";
 
-            if (res != null) {
-                dbtest = res;
-            }
+            String dbtest = queryResult.toString();
 
             //Zu Testzwecken standard antwort
             String speechText = "Slot username enthält: "+username+" und slot projectId enthält: "+ projectId + "  Projekt in der Datenbank: "+dbtest;
@@ -77,9 +79,10 @@ public class StartTimeTrackingIntentHandler implements IntentRequestHandler {
         catch (Exception e){
             //Zu Testzwecken
             //Exception sollte nicht ausgegeben werden
+            queryResult = null;
             return input.getResponseBuilder()
-                    .withSpeech(e.toString())
-                    .withSimpleCard("Spin2Time", e.toString())
+                    .withSpeech("Exception entsteht in handle Methode")
+                    .withSimpleCard("Spin2Time", "Exception entsteht in handle Methode")
                     .build();
         }
 

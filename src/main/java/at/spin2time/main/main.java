@@ -12,6 +12,7 @@ public class main {
     This class willbe removed after finishing the development of the Alexa skill
      */
 
+    /*
     public static void main(String [] args){
 
         try{
@@ -28,4 +29,5 @@ public class main {
             System.out.println(e);
         }
     }
+    */
 }
