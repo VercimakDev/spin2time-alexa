@@ -2,8 +2,11 @@ package at.spin2time.main;
 
 import at.spin2time.handlers.ConnectionClass;
 import at.spin2time.handlers.StartTimeTrackingIntentHandler;
+import at.spin2time.handlers.TimeManagmentClass;
 
 import java.sql.*;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 /*
 Class.forName("com.mysql.cj.jdbc.Driver");
@@ -28,7 +31,16 @@ public class main {
         ConnectionClass cc = new ConnectionClass();
         try {
 
-            System.out.println(cc.selectQueryBuilder("select * from spin2timedb.p_projects;").get(0));
+            System.out.println(cc.selectQueryBuilder("select * from spin2timedb.p_projects;").get(1));
+            /*cc.stopTimeTracking();
+            LocalDateTime myDateObj = LocalDateTime.now();
+            DateTimeFormatter myFormatObj = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+            String formattedDate = myDateObj.format(myFormatObj);
+            System.out.println(formattedDate);*/
+            cc.insertQueryBuilder("insert into wt_worktable values(null,1,'2019-10-22 16:00:00',null,2,null);");
+           // TimeManagmentClass time = new TimeManagmentClass();
+
+           // cc.stopTimeTracking("daniel",time.getNow());
         } catch (SQLException e) {
             e.printStackTrace();
             System.out.println(e.getMessage());

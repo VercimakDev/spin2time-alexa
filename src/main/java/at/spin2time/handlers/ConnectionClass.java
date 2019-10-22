@@ -37,18 +37,21 @@ public class ConnectionClass {
                 i++;
             }
         }
-        if (st != null) {
-            st.close();
-        }
-        if (rs != null) {
             rs.close();
-        }
+            st.close();
         return sqllist;
     }
-    public void insertQueryBuilder (String query) throws SQLException {
+    public boolean insertQueryBuilder (String query) throws SQLException {
         Statement st = connect();
-        if (st != null) {
-            st.close();
-        }
+        boolean rs = false;
+        rs = st.execute(query);
+        st.close();
+        return rs;
+    }
+    public void stopTimeTracking (String name, String now_date) throws SQLException {
+        Statement st = connect();
+        st.execute("CALL StopTime('"+ name + "','"+ now_date + "');");
+        st.close();
+
     }
 }
