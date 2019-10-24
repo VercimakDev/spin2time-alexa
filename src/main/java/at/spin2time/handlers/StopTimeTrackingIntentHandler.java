@@ -22,15 +22,14 @@ public class StopTimeTrackingIntentHandler implements IntentRequestHandler {
 
     @Override
     public Optional<Response> handle(HandlerInput input, IntentRequest intentRequest) {
-        String speechtext = "Stop Time Tracking Intent erfolgreich aufgerufen!";
         Intent intent = intentRequest.getIntent();
         String username = intent.getSlots().get("name").getValue();
         StopTimetracking(username);
 
 
         return input.getResponseBuilder()
-                .withSpeech(speechtext)
-                .withSimpleCard("Spin2Time", speechtext)
+                .withSpeech("Vielen Dank "+ username + ", ich wuensche Ihnen einen entspannten Feierabend!")
+                .withSimpleCard("Spin2Time","Stop time Tracking erfolgreich")
                 .build();
     }
     public void StopTimetracking(String name) {

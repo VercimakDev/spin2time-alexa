@@ -32,12 +32,9 @@ public class main {
         try {
 
             System.out.println(cc.selectQueryBuilder("select * from spin2timedb.p_projects;").get(1));
-            /*cc.stopTimeTracking();
-            LocalDateTime myDateObj = LocalDateTime.now();
-            DateTimeFormatter myFormatObj = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-            String formattedDate = myDateObj.format(myFormatObj);
-            System.out.println(formattedDate);*/
-            cc.insertQueryBuilder("insert into wt_worktable values(null,1,'2019-10-22 16:00:00',null,2,null);");
+            TimeManagmentClass time = new TimeManagmentClass();
+            System.out.print(time.getNow());
+           // cc.insertQueryBuilder("insert into wt_worktable values(null,1,'2019-10-22 16:00:00',null,2,null);");
            // TimeManagmentClass time = new TimeManagmentClass();
 
            // cc.stopTimeTracking("daniel",time.getNow());

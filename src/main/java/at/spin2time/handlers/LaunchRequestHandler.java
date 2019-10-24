@@ -14,7 +14,7 @@ public class LaunchRequestHandler implements RequestHandler  {
     }
 
     public Optional<Response> handle(HandlerInput input) {
-        String speechText = "Willkommen zu Spin to time. Benutzen Sie Hilfe um einige verfügbare Sprachbefehle zu bekommen.";
+        String speechText = "Willkommen zu Spin to time. Benutzen Sie Hilfe um einige verfuegbare Sprachbefehle zu bekommen.";
         return input.getResponseBuilder()
                 .withShouldEndSession(false)
                 .withSpeech(speechText)
