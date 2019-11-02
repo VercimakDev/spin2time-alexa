@@ -29,8 +29,6 @@ public class main {
 
     public static void main(String [] args){
         ConnectionClass cc = new ConnectionClass();
-        try {
-
             System.out.println(cc.selectQueryBuilder("select * from spin2timedb.p_projects;").get(1));
             TimeManagmentClass time = new TimeManagmentClass();
             System.out.print(time.getNow());
@@ -38,10 +36,7 @@ public class main {
            // TimeManagmentClass time = new TimeManagmentClass();
 
            // cc.stopTimeTracking("daniel",time.getNow());
-        } catch (SQLException e) {
-            e.printStackTrace();
-            System.out.println(e.getMessage());
-        }
+
 
     }
 

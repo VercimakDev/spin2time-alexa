@@ -29,17 +29,14 @@ public class StopTimeTrackingIntentHandler implements IntentRequestHandler {
 
         return input.getResponseBuilder()
                 .withSpeech("Vielen Dank "+ username + ", ich wuensche Ihnen einen entspannten Feierabend!")
-                .withSimpleCard("Spin2Time","Stop time Tracking erfolgreich")
+                .withSimpleCard("Spin2Time","Zeitaufzeichnung für "+ username + " erfolgreich beendet")
                 .build();
     }
     public void StopTimetracking(String name) {
         ConnectionClass c = new ConnectionClass();
         TimeManagmentClass time = new TimeManagmentClass();
-        try {
             c.stopTimeTracking(name,time.getNow());
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+
     }
 
 }
