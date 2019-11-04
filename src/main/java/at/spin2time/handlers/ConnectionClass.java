@@ -62,6 +62,7 @@ public class ConnectionClass {
         }
         return rs;
     }
+
     public void stopTimeTracking (String name, String now_date) {
         try(Statement st = connect()) {
             st.execute("CALL StopTime('" + name + "','" + now_date + "');");
@@ -69,6 +70,15 @@ public class ConnectionClass {
             S2TRunntimeException exception = new S2TRunntimeException("Bei der Datenbankabfrage" +
                     " ist ein Fehler aufgetreten");
         }
-
     }
+
+    public void startTimeTracking (String name, String now_date, String projectid) {
+        try(Statement st = connect()) {
+            st.execute("CALL StartTime('" + name + "','" + now_date + "','" + projectid + "');");
+        } catch (SQLException e) {
+            S2TRunntimeException exception = new S2TRunntimeException("Bei der Datenbankabfrage" +
+                    " ist ein Fehler aufgetreten");
+        }
+    }
+
 }
