@@ -16,7 +16,9 @@ public class HelpIntentHandler implements RequestHandler {
 
     @Override
     public Optional<Response> handle(HandlerInput handlerInput) {
-        String speechtext = "Spin2Time hilft Ihnen Ihre Arbeitszeiten einfach und schnell einzutragen";
+        String speechtext = "Spin2Time hilft Ihnen Ihre Arbeitszeiten einfach und schnell einzutragen," +
+                "Sie können folgende Befehle benutzen: Zeitaufzeichnung starten oder stoppen," +
+                " Ihre aufgezeichnete Zeit abfragen und vieles mehr";
         return handlerInput.getResponseBuilder()
                 .withSpeech(speechtext)
                 .withSimpleCard("Spin2Time", speechtext)
