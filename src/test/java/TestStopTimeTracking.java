@@ -29,4 +29,11 @@ public class TestStopTimeTracking {
                 "Limit 1;");
         Assert.assertEquals(data.get(0), timedata );
     }
+    @Test
+    public void TestNoSuchUser() {
+        ConnectionClass connection = new ConnectionClass();
+        TimeManagmentClass time = new TimeManagmentClass();
+        String timedata = time.getNow();
+        connection.stopTimeTracking("name",timedata);
+    }
 }
