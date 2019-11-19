@@ -65,64 +65,50 @@ public class ConnectionClass {
     }
 
     public boolean userExists(String username){
-        boolean res = false;
-        Statement st = connect();
-        try{
-
-            res = st.execute("SELECT u_id from u_users where u_username = '"+username+"');");
-            st.close();
-
-        }catch (SQLException e){
-            S2TRunntimeException exception = new S2TRunntimeException("User "+username+" wurde nicht gefunden.");
+        List list = selectQueryBuilder("SELECT u_id from u_users where u_username = '"+username+"';");
+        if(list.isEmpty()){
+            return false;
         }
-        return res;
+        else{
+            return true;
+        }
+
     }
 
     public boolean isProjectMember(String username, String projectId){
-        try(Statement st = connect()){
 
-            String userid = selectQueryBuilder("select u_id from u_users where u_username = '"+username+"'").get(0).toString();
-
-            if(st.execute("select exists(SELECT * from pm_projectmembers where pm_u_id = "+userid+");")){
-
-                st.close();
-
-                return true;
-            }
-
-        }catch (SQLException e){
-            S2TRunntimeException exception = new S2TRunntimeException("User "+username+" ist kein Projektmitglied von Projekt "+projectId);
+        String userid = selectQueryBuilder("select u_id from u_users where u_username = '"+username+"'").get(0).toString();
+        List list = selectQueryBuilder("SELECT * from pm_projectmembers where pm_u_id = "+userid+" and pm_p_id = "+projectId);
+        if(list.isEmpty()){
+            return false;
         }
-        return false;
+        else{
+            return true;
+        }
+
     }
 
     public boolean projectExists(String projectid){
-        boolean res = false;
-        try(Statement st = connect()){
 
-            res = st.execute("select exists(SELECT p_name from p_projects where p_id = "+projectid+");");
-            st.close();
-
-        }catch (SQLException e){
-            S2TRunntimeException exception = new S2TRunntimeException("Project "+projectid+" wurde nicht gefunden.");
+        List list = selectQueryBuilder("SELECT p_name from p_projects where p_id = "+projectid);
+        if(list.isEmpty()){
+            return false;
         }
-        return res;
+        else{
+            return true;
+        }
+
     }
 
     public boolean checkDoubleEntry(String username){
-        try(Statement st = connect()){
+        String userid = selectQueryBuilder("select u_id from u_users where u_username = '"+username+"'").get(0).toString();
 
-            String userid = selectQueryBuilder("select u_id from u_users where u_username = '"+username+"'").get(0).toString();
+        List list = selectQueryBuilder("SELECT wt_id from wt_worktable where wt_u_id = "+userid+" and wt_stop is null");
 
-            if(st.execute("select exists(SELECT wt_id from wt_worktable where wt_u_id = "+userid+" and wt_stop = null)")){
-                return true;
-            }
-
+        if(list.isEmpty()){
+            return false;
         }
-        catch(SQLException e){
-            S2TRunntimeException exception = new S2TRunntimeException("User "+username+" hat bereits eine Zeitaufzeichnung gestartet.");
-        }
-        return false;
+        return true;
     }
 
 

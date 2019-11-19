@@ -27,7 +27,14 @@ public class StartTimeTrackingIntentHandler implements IntentRequestHandler {
 
         ConnectionClass c = new ConnectionClass();
 
-        if(!c.userExists(username)){
+
+        if(!c.userExists(username) && !c.projectExists(projectId)){
+            return input.getResponseBuilder()
+                    .withSpeech("Leider wurde ihr Benutzername und das Projekt nicht gefunden.")
+                    .withSimpleCard("Spin2Time", "Zeitaufzeichnung fuer "+username+" abgebrochen.")
+                    .build();
+        }
+        else if(!c.userExists(username)){
             return input.getResponseBuilder()
                     .withSpeech("Leider wurde ihr Benutzername "+username+" nicht gefunden.")
                     .withSimpleCard("Spin2Time", "Zeitaufzeichnung fuer "+username+" abgebrochen.")
@@ -42,12 +49,6 @@ public class StartTimeTrackingIntentHandler implements IntentRequestHandler {
         else if(!c.projectExists(projectId)){
             return input.getResponseBuilder()
                     .withSpeech("Leider wurde das Projekt mit der Nummer "+projectId+" nicht gefunden.")
-                    .withSimpleCard("Spin2Time", "Zeitaufzeichnung fuer "+username+" abgebrochen.")
-                    .build();
-        }
-        else if(!c.userExists(username) && !c.projectExists(projectId)){
-            return input.getResponseBuilder()
-                    .withSpeech("Leider wurde ihr Benutzername und das Projekt nicht gefunden.")
                     .withSimpleCard("Spin2Time", "Zeitaufzeichnung fuer "+username+" abgebrochen.")
                     .build();
         }
