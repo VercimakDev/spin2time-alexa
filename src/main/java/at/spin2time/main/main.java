@@ -26,14 +26,6 @@ public class main {
     This class willbe removed after finishing the development of the Alexa skill
      */
 
-
-<<<<<<< HEAD
-    public static void main(String [] args){
-       // ConnectionClass cc = new ConnectionClass();
-          //  System.out.println(cc.selectQueryBuilder("select * from spin2timedb.p_projects;").get(1));
-           // TimeManagmentClass time = new TimeManagmentClass();
-           // System.out.print(time.getNow());
-=======
     public static void main(String [] args) throws SQLException {
         ConnectionClass cc = new ConnectionClass();
 
@@ -43,7 +35,6 @@ public class main {
         System.out.println(st.execute("select exists(SELECT wt_id from wt_worktable where wt_u_id = "+userid+" and wt_stop = null)"));
             //TimeManagmentClass time = new TimeManagmentClass();
             //System.out.print(time.getNow());
->>>>>>> 97c4f053c1ef3b77d2ca4f3449c9f8e18d115cea
            // cc.insertQueryBuilder("insert into wt_worktable values(null,1,'2019-10-22 16:00:00',null,2,null);");
            // TimeManagmentClass time = new TimeManagmentClass();
 
