@@ -10,7 +10,7 @@ import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.List;
 
-/*public class TestStopTimeTracking {
+public class TestStopTimeTracking {
 
     @Test
     public void TestIdeal() {
@@ -29,7 +29,6 @@ import java.util.List;
                 "Limit 1;");
         Assert.assertEquals(data.get(0), timedata );
     }
-<<<<<<< HEAD
     @Test
     public void TestNoSuchUser() {
         ConnectionClass connection = new ConnectionClass();
@@ -39,6 +38,5 @@ import java.util.List;
         
     }
 }
-=======
-}*/
->>>>>>> 97c4f053c1ef3b77d2ca4f3449c9f8e18d115cea
+
+}
