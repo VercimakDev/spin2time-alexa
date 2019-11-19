@@ -67,7 +67,7 @@ public class ConnectionClass {
     public boolean userExists(String username){
 
         List list = selectQueryBuilder("SELECT u_id from u_users where u_username = '"+username+"';");
-        if(list.get(0) == null){
+        if(list.isEmpty()){
             return false;
         }
         else{
@@ -80,7 +80,7 @@ public class ConnectionClass {
 
         String userid = selectQueryBuilder("select u_id from u_users where u_username = '"+username+"'").get(0).toString();
         List list = selectQueryBuilder("SELECT * from pm_projectmembers where pm_u_id = "+userid+" and pm_p_id = "+projectId);
-        if(list.get(0) == null){
+        if(list.isEmpty()){
             return false;
         }
         else{
@@ -92,7 +92,7 @@ public class ConnectionClass {
     public boolean projectExists(String projectid){
 
         List list = selectQueryBuilder("SELECT p_name from p_projects where p_id = "+projectid);
-        if(list.get(0) == null){
+        if(list.isEmpty()){
             return false;
         }
         else{
@@ -104,12 +104,12 @@ public class ConnectionClass {
     public boolean checkDoubleEntry(String username){
         String userid = selectQueryBuilder("select u_id from u_users where u_username = '"+username+"'").get(0).toString();
 
-        List list = selectQueryBuilder("SELECT wt_id from wt_worktable where wt_u_id = "+userid+" and wt_stop = null");
+        List list = selectQueryBuilder("SELECT wt_id from wt_worktable where wt_u_id = "+userid+" and wt_stop is null");
 
-        if(list.get(0) == null){
-            return true;
+        if(list.isEmpty()){
+            return false;
         }
-        return false;
+        return true;
     }
 
 
