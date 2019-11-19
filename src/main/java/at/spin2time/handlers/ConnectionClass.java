@@ -65,7 +65,6 @@ public class ConnectionClass {
     }
 
     public boolean userExists(String username){
-
         List list = selectQueryBuilder("SELECT u_id from u_users where u_username = '"+username+"';");
         if(list.isEmpty()){
             return false;

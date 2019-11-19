@@ -1,5 +1,6 @@
 package at.spin2time.handlers;
 
+import at.spin2time.exceptions.S2TRunntimeException;
 import com.amazon.ask.dispatcher.request.handler.HandlerInput;
 import com.amazon.ask.dispatcher.request.handler.RequestHandler;
 import com.amazon.ask.dispatcher.request.handler.impl.IntentRequestHandler;
@@ -24,19 +25,25 @@ public class StopTimeTrackingIntentHandler implements IntentRequestHandler {
     public Optional<Response> handle(HandlerInput input, IntentRequest intentRequest) {
         Intent intent = intentRequest.getIntent();
         String username = intent.getSlots().get("name").getValue();
-        StopTimetracking(username);
+        ConnectionClass c = new ConnectionClass();
+        if(c.userExists(username)) {
+            stopTimetracking(username);
 
+            return input.getResponseBuilder()
+                    .withSpeech("Vielen Dank "+ username + ", ich wuensche Ihnen einen entspannten Feierabend!")
+                    .withSimpleCard("Spin2Time","Zeitaufzeichnung für "+ username + " erfolgreich beendet")
+                    .build();
+        }else
+            return input.getResponseBuilder()
+                    .withSpeech("Der Username "+ username + ", konnte nicht gefunden werden")
+                    .withSimpleCard("Spin2Time","Zeitaufzeichnung für "+ username + " mit fehler beendet")
+                    .build();
 
-        return input.getResponseBuilder()
-                .withSpeech("Vielen Dank "+ username + ", ich wuensche Ihnen einen entspannten Feierabend!")
-                .withSimpleCard("Spin2Time","Zeitaufzeichnung für "+ username + " erfolgreich beendet")
-                .build();
     }
-    public void StopTimetracking(String name) {
-
+    public void stopTimetracking(String name) {
             ConnectionClass c = new ConnectionClass();
             TimeManagmentClass time = new TimeManagmentClass();
-            c.stopTimeTracking(name,time.getNow());
+            c.stopTimeTracking(name, time.getNow());
         }
 
 
