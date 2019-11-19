@@ -1,6 +1,5 @@
 package at.spin2time.handlers;
 
-import java.sql.*;
 import com.amazon.ask.dispatcher.request.handler.HandlerInput;
 import com.amazon.ask.dispatcher.request.handler.impl.IntentRequestHandler;
 import com.amazon.ask.model.*;
@@ -23,17 +22,45 @@ public class StartTimeTrackingIntentHandler implements IntentRequestHandler {
         Intent intent = intentRequest.getIntent();
 
         String username = intent.getSlots().get("name").getValue();
+
         String projectId = intent.getSlots().get("projectname").getValue();
 
-        StartTimeTracking(username, projectId);
+        ConnectionClass c = new ConnectionClass();
 
-        return input.getResponseBuilder()
-                .withSpeech("Danke "+username+". Ihre Zeitaufzeichnung wurde erfolgreich gestartet!")
-                .withSimpleCard("Spin2Time", "Zeitaufzeichnung für "+username+" wurde erfolgreich gestartet.")
-                .build();
+        if(!c.userExists(username)){
+            return input.getResponseBuilder()
+                    .withSpeech("Leider wurde ihr Benutzername "+username+" nicht gefunden.")
+                    .withSimpleCard("Spin2Time", "Zeitaufzeichnung fuer "+username+" abgebrochen.")
+                    .build();
+        }
+        else if(!c.projectExists(projectId)){
+            return input.getResponseBuilder()
+                    .withSpeech("Leider wurde das Projekt mit der Nummer "+projectId+" nicht gefunden.")
+                    .withSimpleCard("Spin2Time", "Zeitaufzeichnung fuer "+username+" abgebrochen.")
+                    .build();
+        }
+        else if(!c.userExists(username) && !c.projectExists(projectId)){
+            return input.getResponseBuilder()
+                    .withSpeech("Leider wurde ihr Benutzername und das Projekt nicht gefunden.")
+                    .withSimpleCard("Spin2Time", "Zeitaufzeichnung fuer "+username+" abgebrochen.")
+                    .build();
+        }
+        else if(!c.isProjectMember(username, projectId)){
+            return input.getResponseBuilder()
+                    .withSpeech("Der Benutzer "+username+" ist leider kein Mitglied vom Projekt mit der Nummer "+projectId)
+                    .withSimpleCard("Spin2Time", "Zeitaufzeichnung fuer "+username+" abgebrochen.")
+                    .build();
+        }
+        else{
+            startTimeTracking(username,projectId);
+            return input.getResponseBuilder()
+                    .withSpeech("Danke "+username+". Ihre Zeitaufzeichnung am Projekt "+projectId+" wurde erfolgreich gestartet!")
+                    .withSimpleCard("Spin2Time", "Zeitaufzeichnung für "+username+" wurde erfolgreich gestartet.")
+                    .build();
+        }
     }
 
-    public void StartTimeTracking(String name, String projectId){
+    private void startTimeTracking(String name, String projectId){
         ConnectionClass c = new ConnectionClass();
         TimeManagmentClass time = new TimeManagmentClass();
         c.startTimeTracking(name,time.getNow(),projectId);

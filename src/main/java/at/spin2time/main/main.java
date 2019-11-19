@@ -27,11 +27,15 @@ public class main {
      */
 
 
-    public static void main(String [] args){
+    public static void main(String [] args) throws SQLException {
         ConnectionClass cc = new ConnectionClass();
-            System.out.println(cc.selectQueryBuilder("select * from spin2timedb.p_projects;").get(1));
-            TimeManagmentClass time = new TimeManagmentClass();
-            System.out.print(time.getNow());
+
+        Statement st = cc.connect();
+        String username = "daniel";
+        String userid = cc.selectQueryBuilder("select u_id from u_users where u_username = '"+username+"'").get(0).toString();
+        System.out.println(st.execute("select exists(SELECT * from pm_projectmembers where pm_u_id = "+userid+");"));
+            //TimeManagmentClass time = new TimeManagmentClass();
+            //System.out.print(time.getNow());
            // cc.insertQueryBuilder("insert into wt_worktable values(null,1,'2019-10-22 16:00:00',null,2,null);");
            // TimeManagmentClass time = new TimeManagmentClass();
 
