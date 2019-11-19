@@ -33,6 +33,12 @@ public class StartTimeTrackingIntentHandler implements IntentRequestHandler {
                     .withSimpleCard("Spin2Time", "Zeitaufzeichnung fuer "+username+" abgebrochen.")
                     .build();
         }
+        else if(c.checkDoubleEntry(username)){
+            return input.getResponseBuilder()
+                    .withSpeech("Der Benutzer "+username+" hat bereits eine Zeitaufzeichnung gestartet. Beenden Sie diese zuerst bevor Sie eine neue starten.")
+                    .withSimpleCard("Spin2Time", "Zeitaufzeichnung fuer "+username+" konnte nicht gestartet werden.")
+                    .build();
+        }
         else if(!c.projectExists(projectId)){
             return input.getResponseBuilder()
                     .withSpeech("Leider wurde das Projekt mit der Nummer "+projectId+" nicht gefunden.")
