@@ -33,10 +33,11 @@ public class StopTimeTrackingIntentHandler implements IntentRequestHandler {
                 .build();
     }
     public void StopTimetracking(String name) {
-        ConnectionClass c = new ConnectionClass();
-        TimeManagmentClass time = new TimeManagmentClass();
-            c.stopTimeTracking(name,time.getNow());
 
-    }
+            ConnectionClass c = new ConnectionClass();
+            TimeManagmentClass time = new TimeManagmentClass();
+            c.stopTimeTracking(name,time.getNow());
+        }
+
 
 }
