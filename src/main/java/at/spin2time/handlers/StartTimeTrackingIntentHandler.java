@@ -1,6 +1,5 @@
 package at.spin2time.handlers;
 
-import java.sql.*;
 import com.amazon.ask.dispatcher.request.handler.HandlerInput;
 import com.amazon.ask.dispatcher.request.handler.impl.IntentRequestHandler;
 import com.amazon.ask.model.*;
@@ -10,25 +9,6 @@ import java.util.Optional;
 import static com.amazon.ask.request.Predicates.intentName;
 
 public class StartTimeTrackingIntentHandler implements IntentRequestHandler {
-
-    private Connection con;
-
-    public ResultSet connect(){
-        ResultSet rs = null;
-        try{
-            Class.forName("com.mysql.cj.jdbc.Driver");
-            con = DriverManager.getConnection(
-                    "jdbc:mysql://spin2timedb.cyadrtpulaz9.eu-west-1.rds.amazonaws.com:3306/spin2timedb","admin","spin2time");
-            Statement stmt = con.createStatement();
-            rs = stmt.executeQuery("select p_name from p_projects");
-            //con.close();
-            return rs;
-        }
-        catch (Exception e){
-            System.out.println(e.toString());
-            return null;
-        }
-    }
 
 
     @Override
@@ -41,57 +21,55 @@ public class StartTimeTrackingIntentHandler implements IntentRequestHandler {
 
         Intent intent = intentRequest.getIntent();
 
-        //String username = intent.getSlots().get("name").getValue();
-        //String projectId = intent.getSlots().get("projectname").getValue();
+        String username = intent.getSlots().get("name").getValue();
 
+        String projectId = intent.getSlots().get("projectname").getValue();
 
-        try{
+        ConnectionClass c = new ConnectionClass();
 
-            String response = testResponseBuilder();
-            //Zu Testzwecken standard antwort
-            //String speechText = "Slot username enthält: "+username+" und slot projectId enthält: "+ projectId + "  Projekt in der Datenbank: "+dbtest;
-            String speechText = "Test Ausgabedaten";
+        if(!c.userExists(username)){
             return input.getResponseBuilder()
-                    //.withSpeech(speechText)
-                    .withSpeech(response)
-                    .withSimpleCard("Spin2Time", speechText)
-                    .build();
-
-        }
-        catch (Exception e){
-            //Zu Testzwecken
-            //Exception sollte nicht ausgegeben werden
-            return input.getResponseBuilder()
-                    .withSpeech(e.toString())
-                    .withSimpleCard("Spin2Time", e.getMessage())
+                    .withSpeech("Leider wurde ihr Benutzername "+username+" nicht gefunden.")
+                    .withSimpleCard("Spin2Time", "Zeitaufzeichnung fuer "+username+" abgebrochen.")
                     .build();
         }
-
-    }
-
-    public String testResponseBuilder () throws SQLException {
-        ResultSet rs = connect();
-        String dbbuilder = "";
-        if(rs != null) {
-            while (rs.next()) {
-                dbbuilder= dbbuilder+ " "+ rs.getString(1);
-            }
+        else if(c.checkDoubleEntry(username)){
+            return input.getResponseBuilder()
+                    .withSpeech("Der Benutzer "+username+" hat bereits eine Zeitaufzeichnung gestartet. Beenden Sie diese zuerst bevor Sie eine neue starten.")
+                    .withSimpleCard("Spin2Time", "Zeitaufzeichnung fuer "+username+" konnte nicht gestartet werden.")
+                    .build();
         }
-
-        String dbtest = dbbuilder.toString();
-
-        con.close();
-        return dbtest;
+        else if(!c.projectExists(projectId)){
+            return input.getResponseBuilder()
+                    .withSpeech("Leider wurde das Projekt mit der Nummer "+projectId+" nicht gefunden.")
+                    .withSimpleCard("Spin2Time", "Zeitaufzeichnung fuer "+username+" abgebrochen.")
+                    .build();
+        }
+        else if(!c.userExists(username) && !c.projectExists(projectId)){
+            return input.getResponseBuilder()
+                    .withSpeech("Leider wurde ihr Benutzername und das Projekt nicht gefunden.")
+                    .withSimpleCard("Spin2Time", "Zeitaufzeichnung fuer "+username+" abgebrochen.")
+                    .build();
+        }
+        else if(!c.isProjectMember(username, projectId)){
+            return input.getResponseBuilder()
+                    .withSpeech("Der Benutzer "+username+" ist leider kein Mitglied vom Projekt mit der Nummer "+projectId)
+                    .withSimpleCard("Spin2Time", "Zeitaufzeichnung fuer "+username+" abgebrochen.")
+                    .build();
+        }
+        else{
+            startTimeTracking(username,projectId);
+            return input.getResponseBuilder()
+                    .withSpeech("Danke "+username+". Ihre Zeitaufzeichnung am Projekt "+projectId+" wurde erfolgreich gestartet!")
+                    .withSimpleCard("Spin2Time", "Zeitaufzeichnung für "+username+" wurde erfolgreich gestartet.")
+                    .build();
+        }
     }
 
-    /*@Override
-    public Optional<Response> handle(HandlerInput handlerInput) {
+    private void startTimeTracking(String name, String projectId){
+        ConnectionClass c = new ConnectionClass();
+        TimeManagmentClass time = new TimeManagmentClass();
+        c.startTimeTracking(name,time.getNow(),projectId);
+    }
 
-        String speechText = "StartTimeTrackingIntent erfolgreich aufgerufen!";
-
-        return handlerInput.getResponseBuilder()
-                .withSpeech(speechText)
-                .withSimpleCard("Spin2Time", speechText)
-                .build();
-    }*/
 }
