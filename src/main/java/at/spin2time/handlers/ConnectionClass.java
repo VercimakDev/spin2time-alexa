@@ -69,7 +69,7 @@ public class ConnectionClass {
         Statement st = connect();
         try{
 
-            res = st.execute("select exists(SELECT u_id from u_users where u_username = '"+username+"');");
+            res = st.execute("SELECT u_id from u_users where u_username = '"+username+"');");
             st.close();
 
         }catch (SQLException e){

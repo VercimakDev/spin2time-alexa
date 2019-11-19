@@ -13,7 +13,7 @@ import java.util.List;
 public class TestStopTimeTracking {
 
     @Test
-    public void TestIdeal() {
+    public void testIdeal() {
         ConnectionClass connection = new ConnectionClass();
         TimeManagmentClass time = new TimeManagmentClass();
         String timedata = time.getNow();
@@ -30,11 +30,35 @@ public class TestStopTimeTracking {
         Assert.assertEquals(data.get(0), timedata );
     }
     @Test
-    public void TestNoSuchUser() {
+    public void testSuchUser() {
         ConnectionClass connection = new ConnectionClass();
         TimeManagmentClass time = new TimeManagmentClass();
+        StopTimeTrackingIntentHandler handler = new StopTimeTrackingIntentHandler();
         String timedata = time.getNow();
-        connection.stopTimeTracking("name",timedata);
-        
+        boolean result;
+        result = false;
+        if (connection.userExists("daniel")) {
+            handler.stopTimetracking("daniel");
+            result = true;
+        }
+        Assert.assertEquals(true, result);
+    }
+    @Test
+    public void testNoSuchUser() {
+        ConnectionClass connection = new ConnectionClass();
+        TimeManagmentClass time = new TimeManagmentClass();
+        StopTimeTrackingIntentHandler handler = new StopTimeTrackingIntentHandler();
+        String timedata = time.getNow();
+        boolean result;
+        result = false;
+        if (connection.userExists("iiiiiiizzzzz")) {
+            handler.stopTimetracking("iiiiiiizzzzz");
+            result = true;
+        }
+        Assert.assertEquals(false, result);
+    }
+    @Test
+    public void noOpenTimeEntry() {
+
     }
 }
