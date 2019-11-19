@@ -28,15 +28,14 @@ public class main {
 
 
     public static void main(String [] args){
-        ConnectionClass cc = new ConnectionClass();
-            System.out.println(cc.selectQueryBuilder("select * from spin2timedb.p_projects;").get(1));
-            TimeManagmentClass time = new TimeManagmentClass();
-            System.out.print(time.getNow());
+       // ConnectionClass cc = new ConnectionClass();
+          //  System.out.println(cc.selectQueryBuilder("select * from spin2timedb.p_projects;").get(1));
+           // TimeManagmentClass time = new TimeManagmentClass();
+           // System.out.print(time.getNow());
            // cc.insertQueryBuilder("insert into wt_worktable values(null,1,'2019-10-22 16:00:00',null,2,null);");
            // TimeManagmentClass time = new TimeManagmentClass();
 
            // cc.stopTimeTracking("daniel",time.getNow());
-
 
     }
 

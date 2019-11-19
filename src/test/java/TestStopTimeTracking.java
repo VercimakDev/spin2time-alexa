@@ -17,13 +17,14 @@ public class TestStopTimeTracking {
         ConnectionClass connection = new ConnectionClass();
         TimeManagmentClass time = new TimeManagmentClass();
         String timedata = time.getNow();
+        //connection.insertQueryBuilder("insert into u_users values(6,'test','test','123test');");
         connection.insertQueryBuilder("insert into wt_worktable values(null,1,'2019-10-25 00:00:00',null,6,null);");
-        connection.stopTimeTracking("test1",timedata);
+        connection.stopTimeTracking("test",timedata);
         List<String> data;
              data  = connection.selectQueryBuilder("SELECT wt_stop  from wt_worktable\n" +
                 "inner join spin2timedb.u_users \n" +
                 "ON wt_u_id = u_id\n" +
-                "WHERE u_username = \"test1\"\n" +
+                "WHERE u_username = \"test\"\n" +
                 "Order by wt_id DESC\n" +
                 "Limit 1;");
         Assert.assertEquals(data.get(0), timedata );
