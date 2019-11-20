@@ -26,17 +26,24 @@ public class StopTimeTrackingIntentHandler implements IntentRequestHandler {
         Intent intent = intentRequest.getIntent();
         String username = intent.getSlots().get("name").getValue();
         ConnectionClass c = new ConnectionClass();
-        if(c.userExists(username)) {
-            stopTimetracking(username);
+        if(!c.userExists(username)) {
 
+            return input.getResponseBuilder()
+                    .withSpeech("Der User "+ username + ", konnte nicht gefunden werden")
+                    .withSimpleCard("Spin2Time","Zeitaufzeichnung für "+ username + " mit fehler beendet")
+                    .build();
+
+        }
+        if (!c.checkDoubleEntry(username)) {
+            return input.getResponseBuilder()
+                    .withSpeech("Der User "+ username + ", hat noch keine Zeitaufzeichnung gestartet")
+                    .withSimpleCard("Spin2Time","Zeitaufzeichnung für "+ username + " mit fehler beendet")
+                    .build();
+        }
+            stopTimetracking(username);
             return input.getResponseBuilder()
                     .withSpeech("Vielen Dank "+ username + ", ich wuensche Ihnen einen entspannten Feierabend!")
                     .withSimpleCard("Spin2Time","Zeitaufzeichnung für "+ username + " erfolgreich beendet")
-                    .build();
-        }else
-            return input.getResponseBuilder()
-                    .withSpeech("Der Username "+ username + ", konnte nicht gefunden werden")
-                    .withSimpleCard("Spin2Time","Zeitaufzeichnung für "+ username + " mit fehler beendet")
                     .build();
 
     }

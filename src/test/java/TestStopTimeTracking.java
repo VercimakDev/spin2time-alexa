@@ -60,5 +60,15 @@ public class TestStopTimeTracking {
     @Test
     public void noOpenTimeEntry() {
         ConnectionClass connection = new ConnectionClass();
+        TimeManagmentClass time = new TimeManagmentClass();
+        connection.insertQueryBuilder("insert into u_users values(765,'noOpenTime','noOpenTime','123test');");
+        Assert.assertEquals(false,connection.checkDoubleEntry("noOpenTime"));
+    }
+    @Test
+    public void openTimeEntry() {
+        ConnectionClass connection = new ConnectionClass();
+        TimeManagmentClass time = new TimeManagmentClass();
+        connection.insertQueryBuilder("insert into wt_worktable values(null,1,'2019-10-25 00:00:00',null,6,null);");
+        Assert.assertEquals(true,connection.checkDoubleEntry("test"));
     }
 }
