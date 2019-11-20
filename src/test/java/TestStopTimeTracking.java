@@ -59,6 +59,6 @@ public class TestStopTimeTracking {
     }
     @Test
     public void noOpenTimeEntry() {
-
+        ConnectionClass connection = new ConnectionClass();
     }
 }
