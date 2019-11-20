@@ -2,6 +2,7 @@ package at.spin2time.handlers;
 
 import com.amazon.ask.dispatcher.request.handler.HandlerInput;
 import com.amazon.ask.dispatcher.request.handler.impl.IntentRequestHandler;
+import com.amazon.ask.model.Intent;
 import com.amazon.ask.model.IntentRequest;
 import com.amazon.ask.model.Response;
 
@@ -17,9 +18,15 @@ public class ListProjectsIntentHandler implements IntentRequestHandler {
 
     @Override
     public Optional<Response> handle(HandlerInput input, IntentRequest intentRequest) {
+
+        Intent intent = intentRequest.getIntent();
+
+        String username = intent.getSlots().get("name").getValue();
+        
         return input.getResponseBuilder()
                 .withSpeech("ListProjectsIntent aufgerufen")
                 .withSimpleCard("Spin2Time", "ListProjectsIntent")
                 .build();
     }
+
 }
