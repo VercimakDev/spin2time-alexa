@@ -29,15 +29,6 @@ public class main {
     public static void main(String [] args) throws SQLException {
         ConnectionClass cc = new ConnectionClass();
 
-        cc.checkDoubleEntry("daniel");
-            //TimeManagmentClass time = new TimeManagmentClass();
-            //System.out.print(time.getNow());
-           // cc.insertQueryBuilder("insert into wt_worktable values(null,1,'2019-10-22 16:00:00',null,2,null);");
-           // TimeManagmentClass time = new TimeManagmentClass();
-
-           // cc.stopTimeTracking("daniel",time.getNow());
-
-
     }
 
 }
