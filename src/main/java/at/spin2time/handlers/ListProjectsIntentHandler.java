@@ -25,6 +25,8 @@ public class ListProjectsIntentHandler implements IntentRequestHandler {
 
         Intent intent = intentRequest.getIntent();
 
+
+
         String username = intent.getSlots().get("name").getValue();
 
         String speechtext = getProjects(username);
