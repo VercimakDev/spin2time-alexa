@@ -21,6 +21,8 @@ public class StartTimeTrackingIntentHandler implements IntentRequestHandler {
 
         Intent intent = intentRequest.getIntent();
 
+
+
         String username = intent.getSlots().get("name").getValue();
 
         String projectId = intent.getSlots().get("projectname").getValue();
