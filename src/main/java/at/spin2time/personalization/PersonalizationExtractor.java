@@ -19,6 +19,11 @@ public class PersonalizationExtractor {
 
     private static final String PERSONID_PREFIX = "amzn1.ask.person";
 
+    /**
+     * Method returns the PersonalizationInfo of an IntentRequest
+     * @param handlerInput
+     * @return Returns the PersonalizationInfo of an request
+     */
     public static PersonalizationInfo extractPersonalizationInfoFromRequest(HandlerInput handlerInput){
 
         if(handlerInput == null){

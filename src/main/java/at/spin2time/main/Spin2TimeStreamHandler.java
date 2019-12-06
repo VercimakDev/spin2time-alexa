@@ -16,7 +16,8 @@ public class Spin2TimeStreamHandler extends SkillStreamHandler {
                     new SessionEndedRequestHandler(),
                     new StartTimeTrackingIntentHandler(),
                     new StopTimeTrackingIntentHandler(),
-                        new ListProjectsIntentHandler())
+                        new ListProjectsIntentHandler(),
+                        new CurrentTimeIntentHandler())
                 .build();
     }
 
