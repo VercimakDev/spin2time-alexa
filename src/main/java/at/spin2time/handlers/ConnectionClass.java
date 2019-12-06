@@ -132,4 +132,26 @@ public class ConnectionClass {
 
     }
 
+    public String getStartTimeEntry(String name){
+        String id = selectQueryBuilder("SELECT u_id from u_users where u_username = '"+name+"';").get(0).toString();
+        try(Statement st = connect()) {
+
+            st.close();
+        } catch (SQLException e) {
+            S2TRunntimeException exception = new S2TRunntimeException("Bei der Datenbankabfrage" +
+                    " ist ein Fehler aufgetreten");
+        }
+        return id;
+    }
+    public String getTimeWorkedTillNow(String name) {
+        try(Statement st = connect()) {
+            String text = selectQueryBuilder("SELECT hours_and_minutes_worked('"+ name +"');").toString();
+            return text;
+        }catch (SQLException e) {
+            S2TRunntimeException exception = new S2TRunntimeException("Bei der Datenbankabfrage" +
+                    " ist ein Fehler aufgetreten");
+        }
+    return null;
+    }
+
 }

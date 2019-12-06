@@ -28,7 +28,8 @@ public class main {
 
     public static void main(String [] args) throws SQLException {
         ConnectionClass cc = new ConnectionClass();
-
+        System.out.println(cc.getTimeWorkedTillNow("daniel"));
+        System.out.println(cc.userExists("turm"));
     }
 
 }
