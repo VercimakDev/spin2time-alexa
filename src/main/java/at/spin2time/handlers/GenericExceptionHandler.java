@@ -15,7 +15,7 @@ public class GenericExceptionHandler implements ExceptionHandler {
      * Returns true if an exception occurs in the skill
      * @param handlerInput
      * @param throwable
-     * @return
+     * @return true if exception occurs
      */
     @Override
     public boolean canHandle(HandlerInput handlerInput, Throwable throwable) {
