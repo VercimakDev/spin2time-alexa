@@ -3,6 +3,7 @@ package at.spin2time.handlers;
 import com.amazon.ask.attributes.AttributesManager;
 import com.amazon.ask.dispatcher.request.handler.HandlerInput;
 import com.amazon.ask.dispatcher.request.handler.RequestHandler;
+import com.amazon.ask.model.Intent;
 import com.amazon.ask.model.Request;
 import com.amazon.ask.model.RequestEnvelope;
 import com.amazon.ask.model.Response;
@@ -32,6 +33,7 @@ public abstract class BaseHandler implements RequestHandler {
         return canHandleRequest;
     }
 
+    @Override
     public Optional<Response> handle(final HandlerInput handlerInput){
         try{
             this.handlerInput = handlerInput;

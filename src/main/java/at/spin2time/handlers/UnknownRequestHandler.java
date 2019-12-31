@@ -25,7 +25,7 @@ public class UnknownRequestHandler implements RequestHandler {
 
 
     /**
-     * Handles the unrecognized request, shouldEndSession is set to true
+     * Handles the unrecognized request, shouldEndSession is set to false
      * @param handlerInput unknown request received by alexa
      * @return prompttext
      */
@@ -34,7 +34,7 @@ public class UnknownRequestHandler implements RequestHandler {
         log.error("Unrecognized intent request received");
         log.info(handlerInput.getRequestEnvelopeJson());
         return handlerInput.getResponseBuilder()
-                .withSpeech("Tut mir leid, aber das kenne ich nicht. Versuchen Sie einen anderen Befehl.")
+                .withSpeech("Tut mir leid, aber das verstehe ich nicht. Versuchen Sie bitte einen anderen Befehl.")
                 .withSimpleCard("Befehl nicht erkannt","Tut mir leid, das habe ich nicht erkannt.")
                 .withShouldEndSession(false)
                 .build();

@@ -2,8 +2,12 @@ package at.spin2time.personalization;
 
 
 import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.Setter;
 
 @AllArgsConstructor
+@Getter
+@Setter
 public class PersonalizationInfo {
 
     /**
@@ -14,7 +18,7 @@ public class PersonalizationInfo {
     /**
      * The personId from the Request
      * Id of linked Person to the speakers Voice-Profile
-     * Will be "" (empty) if no PersonId exists
+     * Will be "" if no PersonId exists
      */
     private String personId;
 

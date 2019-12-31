@@ -1,11 +1,13 @@
 package at.spin2time.handlers;
 
 import at.spin2time.exceptions.S2TRunntimeException;
+import lombok.extern.log4j.Log4j;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
+@Log4j
 public class ConnectionClass {
 
     public Statement connect(){
@@ -88,6 +90,49 @@ public class ConnectionClass {
 
     }
 
+    public int saveUserRelation(String username, String voiceId){
+        int rs = 0;
+        if(userExists(username) && hasPersonId(username) == false){
+            try (Statement st = connect()) {
+                boolean res = st.execute("update u_users set u_voiceid='"+voiceId+"' where u_username='"+username+"';");
+                st.close();
+                if(res == true){
+                    return rs;
+                }
+                else{
+                    rs = 1;
+                    return rs;
+                }
+            } catch (SQLException e) {
+                log.error("An exception occured in saveUserRelation method");
+                S2TRunntimeException exception = new S2TRunntimeException("Bei dem Updatestatement" +
+                        " ist ein Fehler aufgetreten");
+            }
+        }
+        else if(userExists(username) == false){
+            log.error("User "+username+" doesn't exist");
+            rs = 2;
+            return rs;
+        }
+        else if(hasPersonId(username)){
+            log.error("User already has an personId");
+            rs = 3;
+            return rs;
+        }
+        rs = 1;
+        return rs;
+    }
+
+    public String getUserFromVoiceId(String personId){
+        List list = selectQueryBuilder("select u_username from u_users where u_voiceid = '"+personId+"'");
+        if(list.isEmpty()){
+            return null;
+        }
+        else{
+            return list.get(0).toString();
+        }
+    }
+
     public boolean projectExists(String projectid){
 
         List list = selectQueryBuilder("SELECT p_name from p_projects where p_id = "+projectid);
@@ -106,6 +151,15 @@ public class ConnectionClass {
         List list = selectQueryBuilder("SELECT wt_id from wt_worktable where wt_u_id = "+userid+" and wt_stop is null");
 
         if(list.isEmpty()){
+            return false;
+        }
+        return true;
+    }
+
+    public boolean hasPersonId(String username){
+        String personId = selectQueryBuilder("select u_voiceid from u_users where u_username = '"+username+"'").get(0).toString();
+
+        if(personId.isEmpty() || personId == null){
             return false;
         }
         return true;
