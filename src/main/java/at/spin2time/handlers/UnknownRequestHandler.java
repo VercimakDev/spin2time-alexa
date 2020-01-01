@@ -3,14 +3,14 @@ package at.spin2time.handlers;
 import com.amazon.ask.dispatcher.request.handler.HandlerInput;
 import com.amazon.ask.dispatcher.request.handler.RequestHandler;
 import com.amazon.ask.model.Response;
-import lombok.extern.log4j.Log4j;
+import lombok.extern.log4j.Log4j2;
 
 import java.util.Optional;
 
 /**
  * UnknownRequestHandler handles unknown intent requests
  */
-@Log4j
+@Log4j2
 public class UnknownRequestHandler implements RequestHandler {
 
     /**

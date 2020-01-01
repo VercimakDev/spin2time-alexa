@@ -1,8 +1,11 @@
 package at.spin2time.main;
 
 import at.spin2time.handlers.ConnectionClass;
+import at.spin2time.handlers.PersonalizationIntentHandler;
 import at.spin2time.handlers.StartTimeTrackingIntentHandler;
 import at.spin2time.handlers.TimeManagmentClass;
+import com.amazon.ask.dispatcher.request.handler.HandlerInput;
+import com.amazon.ask.model.IntentRequest;
 
 import java.sql.*;
 import java.time.LocalDateTime;
@@ -20,15 +23,15 @@ Class.forName("com.mysql.cj.jdbc.Driver");
  */
 
 public class main {
-    static StartTimeTrackingIntentHandler st;
     /*
     This class is for test purposes only
-    This class willbe removed after finishing the development of the Alexa skill
+    This class will be removed after finishing the development of the Alexa skill
      */
 
     public static void main(String [] args) throws SQLException {
+        String username = "daniel";
         ConnectionClass cc = new ConnectionClass();
-
+        System.out.println(cc.hasPersonId(username));
     }
 
 }

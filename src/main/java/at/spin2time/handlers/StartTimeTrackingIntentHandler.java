@@ -3,13 +3,13 @@ package at.spin2time.handlers;
 import com.amazon.ask.dispatcher.request.handler.HandlerInput;
 import com.amazon.ask.dispatcher.request.handler.impl.IntentRequestHandler;
 import com.amazon.ask.model.*;
-import lombok.extern.log4j.Log4j;
+import lombok.extern.log4j.Log4j2;
 
 import java.util.Optional;
 
 import static com.amazon.ask.request.Predicates.intentName;
 
-@Log4j
+@Log4j2
 public class StartTimeTrackingIntentHandler implements IntentRequestHandler {
 
 

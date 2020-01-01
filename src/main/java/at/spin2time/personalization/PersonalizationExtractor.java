@@ -7,14 +7,14 @@ import com.amazon.ask.model.Context;
 import com.amazon.ask.model.Person;
 import com.amazon.ask.model.RequestEnvelope;
 import com.amazon.ask.model.interfaces.system.SystemState;
-import lombok.extern.log4j.Log4j;
+import lombok.extern.log4j.Log4j2;
 import org.apache.commons.lang3.StringUtils;
 
 import java.util.Optional;
 
 import static at.spin2time.util.SessionAttribute.PRINCIPLE_ID;
 
-@Log4j
+@Log4j2
 public class PersonalizationExtractor {
 
     private static final String PERSONID_PREFIX = "amzn1.ask.person";

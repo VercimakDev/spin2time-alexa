@@ -8,11 +8,11 @@ import com.amazon.ask.model.Request;
 import com.amazon.ask.model.RequestEnvelope;
 import com.amazon.ask.model.Response;
 import com.amazon.ask.request.Predicates;
-import lombok.extern.log4j.Log4j;
+import lombok.extern.log4j.Log4j2;
 
 import java.util.Optional;
 
-@Log4j
+@Log4j2
 public abstract class BaseHandler implements RequestHandler {
 
     protected HandlerInput handlerInput;

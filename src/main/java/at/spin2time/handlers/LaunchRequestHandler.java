@@ -6,11 +6,11 @@ import com.amazon.ask.dispatcher.request.handler.RequestHandler;
 import com.amazon.ask.model.IntentRequest;
 import com.amazon.ask.model.LaunchRequest;
 import com.amazon.ask.model.Response;
-import lombok.extern.log4j.Log4j;
+import lombok.extern.log4j.Log4j2;
 
 import static com.amazon.ask.request.Predicates.requestType;
 
-@Log4j
+@Log4j2
 public class LaunchRequestHandler extends IntentHandler  {
 
     @Override

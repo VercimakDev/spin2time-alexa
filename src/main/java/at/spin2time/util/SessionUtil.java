@@ -1,12 +1,12 @@
 package at.spin2time.util;
 
 import com.amazon.ask.attributes.AttributesManager;
-import lombok.extern.log4j.Log4j;
+import lombok.extern.log4j.Log4j2;
 
 import java.util.Map;
 import java.util.Optional;
 
-@Log4j
+@Log4j2
 public class SessionUtil{
 
     public static void addOrUpdateSessionAttribute(AttributesManager attributesManager, String key, Object value) {
