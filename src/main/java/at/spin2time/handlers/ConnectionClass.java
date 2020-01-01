@@ -8,6 +8,10 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Class for Database-interaction methods
+ * and simple check methods
+ */
 @Log4j2
 public class ConnectionClass {
 

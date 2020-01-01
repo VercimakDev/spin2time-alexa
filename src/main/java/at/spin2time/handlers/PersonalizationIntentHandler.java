@@ -13,11 +13,18 @@ import java.util.Optional;
 @Log4j2
 public class PersonalizationIntentHandler extends IntentHandler {
 
+    /**
+     * Method to get the requested intents name
+     * @return
+     */
     @Override
     public String getIntentRequestName() {
         return "PersonalizationIntent";
     }
 
+    /**
+     * Method to handle requests that are not personalized
+     */
     @Override
     public Optional<Response> handleWithoutPersInfo() {
         log.error("No personId found. Request isn't personalized.");
@@ -28,6 +35,11 @@ public class PersonalizationIntentHandler extends IntentHandler {
                 .build();
     }
 
+    /**
+     * Method that handles personalized requests
+     * @param personId users personId from Alexa request to identify the user
+     * @return Alexa response
+     */
     @Override
     public Optional<Response> handleWithPersInfo(String personId) {
 
