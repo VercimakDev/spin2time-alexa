@@ -3,10 +3,7 @@ package at.spin2time.handlers;
 import com.amazon.ask.attributes.AttributesManager;
 import com.amazon.ask.dispatcher.request.handler.HandlerInput;
 import com.amazon.ask.dispatcher.request.handler.RequestHandler;
-import com.amazon.ask.model.Intent;
-import com.amazon.ask.model.Request;
-import com.amazon.ask.model.RequestEnvelope;
-import com.amazon.ask.model.Response;
+import com.amazon.ask.model.*;
 import com.amazon.ask.request.Predicates;
 import lombok.extern.log4j.Log4j2;
 
@@ -46,6 +43,7 @@ public abstract class BaseHandler implements RequestHandler {
             throw e;
         }
     }
+
 
     /**
      * Final handle method for processing the input and handling it

@@ -15,7 +15,7 @@ import static com.amazon.ask.request.Predicates.intentName;
  * Uses skill personalization
  */
 @Log4j2
-public class StartTimeTrackingIntentHandler extends IntentHandler{
+public class StartPersTimeTrackingIntentHandler extends IntentHandler{
 
     /**
      * Method which starts time-tracking
@@ -44,11 +44,12 @@ public class StartTimeTrackingIntentHandler extends IntentHandler{
     @Override
     public Optional<Response> handleWithoutPersInfo() {
 
-        String username = getUsernameFromRequest();
-        String projectId = getProjectidFromRequest();
-        ConnectionClass cc = new ConnectionClass();
+        return handlerInput.getResponseBuilder()
+                .withShouldEndSession(false)
+                .withSpeech("Sie müssen einen Benutzernamen angeben um Ihre Zeit aufzuzeichnen.")
+                .withReprompt("Versuchen Sie zum Beispiel: 'Hannes arbeitet jetzt'")
+                .build();
 
-        return getResponse(cc, username, projectId);
     }
 
     /**
@@ -119,20 +120,6 @@ public class StartTimeTrackingIntentHandler extends IntentHandler{
         }
     }
 
-    /**
-     * Method to get the slot value from the intentRequest
-     * @return value of slot username
-     */
-    private String getUsernameFromRequest(){
-        return Optional.of(handlerInput)
-                .map(AbstractHandlerInput::getRequest)
-                .map(i -> (IntentRequest) i)
-                .map(IntentRequest::getIntent)
-                .map(Intent::getSlots)
-                .map(s -> s.get("name"))
-                .map(Slot::getValue)
-                .orElse(null);
-    }
 
     /**
      * Method to get the slot value from the intentRequest

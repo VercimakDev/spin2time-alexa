@@ -1,16 +1,8 @@
 package at.spin2time.main;
 
 import at.spin2time.handlers.ConnectionClass;
-import at.spin2time.handlers.PersonalizationIntentHandler;
-import at.spin2time.handlers.StartTimeTrackingIntentHandler;
-import at.spin2time.handlers.TimeManagmentClass;
-import com.amazon.ask.dispatcher.request.handler.HandlerInput;
-import com.amazon.ask.model.IntentRequest;
 
 import java.sql.*;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
 /*
 Class.forName("com.mysql.cj.jdbc.Driver");
             Connection con = DriverManager.getConnection(
@@ -27,11 +19,4 @@ public class main {
     This class is for test purposes only
     This class will be removed after finishing the development of the Alexa skill
      */
-
-    public static void main(String [] args) throws SQLException {
-        String username = "daniel";
-        ConnectionClass cc = new ConnectionClass();
-        System.out.println(cc.hasPersonId(username));
-    }
-
 }

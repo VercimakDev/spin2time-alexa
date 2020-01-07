@@ -33,8 +33,10 @@ public class CancelIntentHandler extends IntentHandler {
 
     @Override
     public Optional<Response> handleWithPersInfo(String personId) {
+        ConnectionClass cc = new ConnectionClass();
+        String username = cc.getUserFromVoiceId(personId);
         return handlerInput.getResponseBuilder()
-                .withSpeech("Auf Wiedersehen "+personId+"!")
+                .withSpeech("Auf Wiedersehen "+username+"!")
                 .withShouldEndSession(true)
                 .build();
     }
