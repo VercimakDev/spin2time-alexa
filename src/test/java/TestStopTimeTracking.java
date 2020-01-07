@@ -37,8 +37,8 @@ public class TestStopTimeTracking {
         String timedata = time.getNow();
         boolean result;
         result = false;
-        if (connection.userExists("daniel")) {
-            handler.stopTimetracking("daniel");
+        if (connection.userExists("test")) {
+            handler.stopTimetracking("test");
             result = true;
         }
         Assert.assertEquals(true, result);
