@@ -144,14 +144,13 @@ public class ConnectionClass {
         return id;
     }
     public String getTimeWorkedTillNow(String name) {
-        try(Statement st = connect()) {
-            String text = selectQueryBuilder("SELECT hours_and_minutes_worked('"+ name +"');").toString();
-            return text;
-        }catch (SQLException e) {
-            S2TRunntimeException exception = new S2TRunntimeException("Bei der Datenbankabfrage" +
-                    " ist ein Fehler aufgetreten");
-        }
-    return null;
+        String text = selectQueryBuilder("SELECT hours_and_minutes_worked('"+ name +"');").toString();
+        return text;
+    }
+
+    public String getTimeWorkedThisMonth(String name, String projectid) {
+        String text = selectQueryBuilder("Select month_hours_worked('"+name+"','"+projectid+"');").toString();
+        return text;
     }
 
 }
