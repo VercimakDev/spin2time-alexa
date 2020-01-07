@@ -1,13 +1,9 @@
 import at.spin2time.handlers.ConnectionClass;
-import at.spin2time.handlers.CurrentTimeIntentHandler;
-import at.spin2time.handlers.StopTimeTrackingIntentHandler;
+import at.spin2time.handlers.StopPersTimeTrackingIntentHandler;
 import at.spin2time.handlers.TimeManagmentClass;
 import org.junit.Assert;
-import org.junit.Assert.*;
 import org.junit.Test;
 
-import java.sql.Connection;
-import java.util.ArrayList;
 import java.util.List;
 
 public class TestStopTimeTracking {
@@ -33,7 +29,7 @@ public class TestStopTimeTracking {
     public void testSuchUser() {
         ConnectionClass connection = new ConnectionClass();
         TimeManagmentClass time = new TimeManagmentClass();
-        StopTimeTrackingIntentHandler handler = new StopTimeTrackingIntentHandler();
+        StopPersTimeTrackingIntentHandler handler = new StopPersTimeTrackingIntentHandler();
         String timedata = time.getNow();
         boolean result;
         result = false;
@@ -47,7 +43,7 @@ public class TestStopTimeTracking {
     public void testNoSuchUser() {
         ConnectionClass connection = new ConnectionClass();
         TimeManagmentClass time = new TimeManagmentClass();
-        StopTimeTrackingIntentHandler handler = new StopTimeTrackingIntentHandler();
+        StopPersTimeTrackingIntentHandler handler = new StopPersTimeTrackingIntentHandler();
         String timedata = time.getNow();
         boolean result;
         result = false;

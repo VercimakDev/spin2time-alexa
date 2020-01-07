@@ -1,66 +1,60 @@
 package at.spin2time.handlers;
 
 import com.amazon.ask.dispatcher.request.handler.HandlerInput;
-import com.amazon.ask.dispatcher.request.handler.impl.IntentRequestHandler;
-import com.amazon.ask.model.*;
+import com.amazon.ask.model.Intent;
+import com.amazon.ask.model.IntentRequest;
+import com.amazon.ask.model.Response;
+import com.amazon.ask.model.Slot;
 import com.amazon.ask.request.exception.handler.impl.AbstractHandlerInput;
 import lombok.extern.log4j.Log4j2;
 
 import java.util.Optional;
 
 import static com.amazon.ask.request.Predicates.intentName;
-import static com.amazon.ask.request.Predicates.requestType;
 
-/**
- * Handler to start time tracking for a specific project
- * Uses skill personalization
- */
 @Log4j2
-public class StartPersTimeTrackingIntentHandler extends IntentHandler{
+public class StartNonpersTimeTrackingIntentHandler extends IntentHandler{
 
     @Override
     public boolean canHandle(HandlerInput input) {
-        log.info("Request can be handled by StartPersTimeTrackingIntentHandler");
-        return input.matches(intentName("StartPersTimeTrackingIntent"));
+        log.info("Request can be handled by StartNonpersTimeTrackingIntentHandler");
+        return input.matches(intentName("StartNonpersTimeTrackingIntent"));
     }
 
-    /**
-     * Method to get the Intent-requests name
-     * @return requestname
-     */
     @Override
     public String getIntentRequestName() {
-        return "StartTimeTrackingIntent";
+        return "StartNonpersIntent";
     }
 
     /**
-     * Handles the request without personalization info
-     * @return Alexa response
+     * Method which starts time-tracking
+     * @param name the users name
+     * @param projectId of project for which the user would like to start time-tracking
      */
+    private void startTimeTracking(String name, String projectId){
+        ConnectionClass c = new ConnectionClass();
+        TimeManagmentClass time = new TimeManagmentClass();
+        c.startTimeTracking(name,time.getNow(),projectId);
+    }
+
     @Override
     public Optional<Response> handleWithoutPersInfo() {
+        ConnectionClass cc = new ConnectionClass();
+        String username = getUsernameFromRequest();
+        String projectId = getProjectidFromRequest();
 
-        return handlerInput.getResponseBuilder()
-                .withShouldEndSession(false)
-                .withSpeech("Sie müssen einen Benutzernamen angeben um Ihre Zeit aufzuzeichnen.")
-                .withReprompt("Versuchen Sie zum Beispiel: 'Hannes arbeitet jetzt'")
-                .build();
-
+        return getResponse(cc, username, projectId);
     }
 
-    /**
-     * Handles the request with personalization info
-     * @param personId the users unique personid
-     * @return personalized response
-     */
     @Override
     public Optional<Response> handleWithPersInfo(String personId) {
 
         ConnectionClass cc = new ConnectionClass();
-        String username = cc.getUserFromVoiceId(personId);
+        String username = getUsernameFromRequest();
         String projectId = getProjectidFromRequest();
 
         return getResponse(cc, username, projectId);
+
     }
 
     /**
@@ -116,7 +110,6 @@ public class StartPersTimeTrackingIntentHandler extends IntentHandler{
         }
     }
 
-
     /**
      * Method to get the slot value from the intentRequest
      * @return value of slot projectname
@@ -133,14 +126,18 @@ public class StartPersTimeTrackingIntentHandler extends IntentHandler{
     }
 
     /**
-     * Method which starts time-tracking
-     * @param name the users name
-     * @param projectId of project for which the user would like to start time-tracking
+     * Method to get the slot value from the intentRequest
+     * @return value of slot name
      */
-    private void startTimeTracking(String name, String projectId){
-        ConnectionClass c = new ConnectionClass();
-        TimeManagmentClass time = new TimeManagmentClass();
-        c.startTimeTracking(name,time.getNow(),projectId);
+    private String getUsernameFromRequest(){
+        return Optional.of(handlerInput)
+                .map(AbstractHandlerInput::getRequest)
+                .map(i -> (IntentRequest) i)
+                .map(IntentRequest::getIntent)
+                .map(Intent::getSlots)
+                .map(s -> s.get("name"))
+                .map(Slot::getValue)
+                .orElse(null);
     }
 
 }

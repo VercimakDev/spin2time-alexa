@@ -19,4 +19,14 @@ public class main {
     This class is for test purposes only
     This class will be removed after finishing the development of the Alexa skill
      */
+    public static void main(String [] args){
+        ConnectionClass cc = new ConnectionClass();
+        String username = cc.getUserFromVoiceId("class User {\n" +
+                "    userId: amzn1.ask.account.AHY2TDS6PBIOQY5FO7XEFET2IVXLIEBKXZNQT5ZYXNPXWSZKOQ66N4ZVFPYLR7RDOEQK43KGAC2DZXCJTK5HKJIET64JNENL4BZIB7YUOEWN44ENWLKUCDGNNQESTR4F3BEQSGT2OFE2XGSSCUWP7NKDAW5JXD3DDTNTO5RXGECS66Q6YDUICVMJ6SNSCTNR5C3NKGGIUDGNRBA\n" +
+                "    accessToken: null\n" +
+                "    permissions: null\n" +
+                "}");
+        System.out.println(username);
+    }
+
 }
