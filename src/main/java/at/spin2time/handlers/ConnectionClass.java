@@ -1,11 +1,18 @@
 package at.spin2time.handlers;
 
 import at.spin2time.exceptions.S2TRunntimeException;
+import lombok.extern.log4j.Log4j;
+import lombok.extern.log4j.Log4j2;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Class for Database-interaction methods
+ * and simple check methods
+ */
+@Log4j2
 public class ConnectionClass {
 
     public Statement connect(){
@@ -16,8 +23,6 @@ public class ConnectionClass {
             con = DriverManager.getConnection(
                     "jdbc:mysql://spin2timedb.cyadrtpulaz9.eu-west-1.rds.amazonaws.com:3306/spin2timedb","admin","spin2time");
             Statement stmt = con.createStatement();
-            //rs = stmt.executeQuery("select p_name from p_projects");
-            //con.close();
             return stmt;
         }
         catch (Exception e){
@@ -88,6 +93,30 @@ public class ConnectionClass {
 
     }
 
+    public boolean saveUserRelation(String username, String voiceId){
+        boolean rs = false;
+        try (Statement st = connect()) {
+            rs = st.execute("update u_users set u_voiceid='"+voiceId+"' where u_username='"+username+"';");
+            st.close();
+            return rs;
+        } catch (SQLException e) {
+            log.error("An exception occured in saveUserRelation method");
+            S2TRunntimeException exception = new S2TRunntimeException("Bei dem Updatestatement" +
+                    " ist ein Fehler aufgetreten");
+        }
+        return rs;
+    }
+
+    public String getUserFromVoiceId(String personId){
+        List list = selectQueryBuilder("select u_username from u_users where u_voiceid = '"+personId+"'");
+        if(list.isEmpty()){
+            return null;
+        }
+        else{
+            return list.get(0).toString();
+        }
+    }
+
     public boolean projectExists(String projectid){
 
         List list = selectQueryBuilder("SELECT p_name from p_projects where p_id = "+projectid);
@@ -109,6 +138,10 @@ public class ConnectionClass {
             return false;
         }
         return true;
+    }
+
+    public boolean hasPersonId(String username){
+        return selectQueryBuilder("select u_voiceid from u_users where u_username = '" + username + "'").get(0) != null;
     }
 
 
