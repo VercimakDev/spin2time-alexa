@@ -36,8 +36,8 @@ public class StopPersTimeTrackingIntentHandler extends IntentHandler {
     public Optional<Response> handleWithoutPersInfo() {
         return handlerInput.getResponseBuilder()
                 .withShouldEndSession(false)
-                .withSpeech("Sie müssen einen Benutzernamen angeben um Ihre Zeitaufzeichung zu beenden.")
-                .withReprompt("Versuchen Sie zum Beispiel: 'Hannes geht jetzt'")
+                .withSpeech("Um diese Funktion zu nutzen muessen Sie Ihren Nutzernamen angeben oder ein Voice-Profil erstellen.")
+                .withReprompt("Versuchen Sie beispielsweise: 'Hannes geht jetzt'")
                 .build();
     }
 

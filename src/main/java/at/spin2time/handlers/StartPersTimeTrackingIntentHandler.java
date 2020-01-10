@@ -42,8 +42,8 @@ public class StartPersTimeTrackingIntentHandler extends IntentHandler{
 
         return handlerInput.getResponseBuilder()
                 .withShouldEndSession(false)
-                .withSpeech("Sie müssen einen Benutzernamen angeben um Ihre Zeit aufzuzeichnen.")
-                .withReprompt("Versuchen Sie zum Beispiel: 'Hannes arbeitet jetzt'")
+                .withSpeech("Um diese Funktion zu nutzen, muessen Sie einen Nutzernamen angeben oder ein Voice-Profil erstellen.")
+                .withReprompt("Versuchen Sie beispielsweise: 'Hannes arbeitet jetzt'")
                 .build();
 
     }
