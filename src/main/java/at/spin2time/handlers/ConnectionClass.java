@@ -1,7 +1,6 @@
 package at.spin2time.handlers;
 
-import at.spin2time.exceptions.S2TRunntimeException;
-import lombok.extern.log4j.Log4j;
+import at.spin2time.exceptions.S2TRuntimeException;
 import lombok.extern.log4j.Log4j2;
 
 import java.sql.*;
@@ -49,7 +48,7 @@ public class ConnectionClass {
             st.close();
 
         } catch (SQLException e) {
-            S2TRunntimeException exception = new S2TRunntimeException("Bei dem Selectstatement" +
+            S2TRuntimeException exception = new S2TRuntimeException("Bei dem Selectstatement" +
                     " ist ein Fehler aufgetreten");
         }
         return sqllist;
@@ -63,7 +62,7 @@ public class ConnectionClass {
             st.close();
 
         } catch (SQLException e) {
-            S2TRunntimeException exception = new S2TRunntimeException("Bei dem Insertstatement" +
+            S2TRuntimeException exception = new S2TRuntimeException("Bei dem Insertstatement" +
                     " ist ein Fehler aufgetreten");
         }
         return rs;
@@ -101,7 +100,7 @@ public class ConnectionClass {
             return rs;
         } catch (SQLException e) {
             log.error("An exception occured in saveUserRelation method");
-            S2TRunntimeException exception = new S2TRunntimeException("Bei dem Updatestatement" +
+            S2TRuntimeException exception = new S2TRuntimeException("Bei dem Updatestatement" +
                     " ist ein Fehler aufgetreten");
         }
         return rs;
@@ -149,7 +148,7 @@ public class ConnectionClass {
         try(Statement st = connect()) {
             st.execute("CALL StopTime('" + name + "','" + now_date + "');");
         } catch (SQLException e) {
-            S2TRunntimeException exception = new S2TRunntimeException("Bei der Datenbankabfrage" +
+            S2TRuntimeException exception = new S2TRuntimeException("Bei der Datenbankabfrage" +
                     " ist ein Fehler aufgetreten");
         }
     }
@@ -159,7 +158,7 @@ public class ConnectionClass {
             st.execute("CALL StartTime('" + name + "','" + now_date + "','" + projectid + "');");
             st.close();
         } catch (SQLException e) {
-            S2TRunntimeException exception = new S2TRunntimeException("Bei der Datenbankabfrage" +
+            S2TRuntimeException exception = new S2TRuntimeException("Bei der Datenbankabfrage" +
                     " ist ein Fehler aufgetreten");
         }
 
@@ -171,7 +170,7 @@ public class ConnectionClass {
 
             st.close();
         } catch (SQLException e) {
-            S2TRunntimeException exception = new S2TRunntimeException("Bei der Datenbankabfrage" +
+            S2TRuntimeException exception = new S2TRuntimeException("Bei der Datenbankabfrage" +
                     " ist ein Fehler aufgetreten");
         }
         return id;

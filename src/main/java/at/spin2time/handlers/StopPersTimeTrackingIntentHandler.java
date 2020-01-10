@@ -1,14 +1,8 @@
 package at.spin2time.handlers;
 
-import at.spin2time.exceptions.S2TRunntimeException;
 import com.amazon.ask.dispatcher.request.handler.HandlerInput;
-import com.amazon.ask.dispatcher.request.handler.RequestHandler;
-import com.amazon.ask.dispatcher.request.handler.impl.IntentRequestHandler;
-import com.amazon.ask.model.Intent;
-import com.amazon.ask.model.IntentRequest;
 import com.amazon.ask.model.Response;
 
-import java.sql.SQLException;
 import java.util.Optional;
 
 import static com.amazon.ask.request.Predicates.intentName;
