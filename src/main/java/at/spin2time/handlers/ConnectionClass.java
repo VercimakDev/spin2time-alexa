@@ -128,6 +128,12 @@ public class ConnectionClass {
 
     }
 
+    /**
+     * This method returns true or false based on the if the user has already started an unfinished time-entry
+     * true means the user already has a time-entry, false means he doesnt
+     * @param username
+     * @return true, false
+     */
     public boolean checkDoubleEntry(String username){
         String userid = selectQueryBuilder("select u_id from u_users where u_username = '"+username+"'").get(0).toString();
 
