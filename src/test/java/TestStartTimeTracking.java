@@ -59,5 +59,24 @@ public class TestStartTimeTracking {
         }
         Assert.assertEquals(true,result);
     }
+
+    @Test
+    public void testIsTeammember() {
+        ConnectionClass connection = new ConnectionClass();
+        boolean result = false;
+        if(connection.isProjectMember("test","1")) {
+            result = true;
+        }
+        Assert.assertEquals(true,result);
+    }
+    @Test
+    public void testIsNotTeammember() {
+        ConnectionClass connection = new ConnectionClass();
+        boolean result = false;
+        if(!connection.isProjectMember("test","6")) {
+            result = true;
+        }
+        Assert.assertEquals(true,result);
+    }
 }
 
