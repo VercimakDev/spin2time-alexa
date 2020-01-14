@@ -5,7 +5,6 @@ import org.junit.Assert;
 import org.junit.Test;
 
 import java.util.List;
-
 public class TestStopTimeTracking {
 
     @Test
@@ -57,7 +56,7 @@ public class TestStopTimeTracking {
     public void noOpenTimeEntry() {
         ConnectionClass connection = new ConnectionClass();
         TimeManagmentClass time = new TimeManagmentClass();
-        connection.insertQueryBuilder("insert into u_users values(765,'noOpenTime','noOpenTime','123test');");
+        connection.insertQueryBuilder("insert into u_users values(765,'noOpenTime','noOpenTime','123test',null);");
         Assert.assertEquals(false,connection.checkDoubleEntry("noOpenTime"));
     }
     @Test
