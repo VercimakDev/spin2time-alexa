@@ -11,7 +11,7 @@ public class Spin2TimeStreamHandler extends SkillStreamHandler {
         return Skills.standard()
                 .withSkillId("amzn1.ask.skill.9fc5e41f-783f-4db9-924f-76222edb2b51")
                 .addRequestHandlers(
-                    new CancelIntentHandler(),
+                    new StopIntentHandler(),
                     new HelpIntentHandler(),
                     new LaunchRequestHandler(),
                     new SessionEndedRequestHandler(),

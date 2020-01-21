@@ -15,13 +15,16 @@ public class StopIntentHandler implements RequestHandler {
 
     @Override
     public boolean canHandle(HandlerInput handlerInput) {
-        return handlerInput.matches(intentName("AMAZON.StopIntent"));
+        return handlerInput.matches(intentName("AMAZON.StopIntent").or(intentName("AMAZON.CancelIntent")));
     }
-
 
     @Override
     public Optional<Response> handle(HandlerInput handlerInput) {
-        return Optional.empty();
+        String speechtext = "Auf wiedersehen!";
+        return handlerInput.getResponseBuilder()
+                .withSpeech(speechtext)
+                .withSimpleCard("Spin2Time", speechtext)
+                .build();
     }
 
 }
