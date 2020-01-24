@@ -40,7 +40,7 @@ public class LaunchRequestHandler extends IntentHandler  {
         ConnectionClass cc = new ConnectionClass();
         String username = cc.getUserFromVoiceId(personId);
         if(username != null) {
-            final String speechtext = "Willkommen, " + username + ", zu Spin to time!";
+            final String speechtext = "Hallo " + username + ", willkommen zu Spin to time!";
             return handlerInput.getResponseBuilder()
                     .withShouldEndSession(false)
                     .withSpeech(speechtext)

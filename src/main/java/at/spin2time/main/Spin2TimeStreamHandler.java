@@ -17,6 +17,7 @@ public class Spin2TimeStreamHandler extends SkillStreamHandler {
                     new SessionEndedRequestHandler(),
                     new StartPersTimeTrackingIntentHandler(),
                     new StopNonpersTimeTrackingIntentHandler(),
+                    new RemovePersonalizationIntentHandler(),
                     new StopPersTimeTrackingIntentHandler(),
                         new ListProjectsIntentHandler(),
                         new CurrentTimeIntentHandler(),
