@@ -19,9 +19,9 @@ public class main {
     This class is for test purposes only
     This class will be removed after finishing the development of the Alexa skill
      */
-    public static void main(String [] args){
+    public static void main(String [] args) {
         ConnectionClass connection = new ConnectionClass();
-        System.out.println(connection.checkDoubleEntry("test"));
+        connection.removeVoiceProfile("daniel");
     }
 
 }

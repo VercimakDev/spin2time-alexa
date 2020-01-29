@@ -15,7 +15,7 @@ public class PersonalizationIntentHandler extends IntentHandler {
 
     /**
      * Method to get the requested intents name
-     * @return
+     * @return IntentName
      */
     @Override
     public String getIntentRequestName() {
