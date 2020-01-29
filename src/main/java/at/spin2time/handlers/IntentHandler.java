@@ -48,7 +48,8 @@ public abstract class IntentHandler extends BaseHandler{
             //log.info("Saving userId and personId");
             /**
              * Add a thread that stores the UserId and PersonId to a Database
-             * Left out for test purposes
+             * Left out because we created another method that creates the relation between the voice-profile and the
+             * s2t user
              */
             //log.info("UserId: "+personalizationInfo.getUserId()+" PersonId: "+personalizationInfo.getPersonId());
             return personalizationInfo.getPersonId();
