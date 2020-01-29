@@ -27,14 +27,14 @@ public abstract class IntentHandler extends BaseHandler{
         String personId = personalizationInitialization();
         if(personId != null){
             try {
-                log.info("PersonID: " + personId);
+                //log.info("PersonID: " + personId);
                 return handleWithPersInfo(personId);
             }catch(Exception e){
                 throw new S2TPersonalizationException("Couldn't handle Request with PersonID.");
             }
         }
         else{
-            log.info("No Person recognized. Handling without Personalization.");
+            //log.info("No Person recognized. Handling without Personalization.");
             return handleWithoutPersInfo();
         }
     }
@@ -43,14 +43,14 @@ public abstract class IntentHandler extends BaseHandler{
         this.personalizationInfo = PersonalizationExtractor.extractPersonalizationInfoFromRequest(handlerInput);
         addOrUpdateSessionAttribute(PRINCIPLE_ID, personalizationInfo.getPrincipleId());
 
-        log.info("Personalization status: "+personalizationInfo);
+        //log.info("Personalization status: "+personalizationInfo);
         if(personalizationInfo.isPersonalized()){
-            log.info("Saving userId and personId");
+            //log.info("Saving userId and personId");
             /**
              * Add a thread that stores the UserId and PersonId to a Database
              * Left out for test purposes
              */
-            log.info("UserId: "+personalizationInfo.getUserId()+" PersonId: "+personalizationInfo.getPersonId());
+            //log.info("UserId: "+personalizationInfo.getUserId()+" PersonId: "+personalizationInfo.getPersonId());
             return personalizationInfo.getPersonId();
         }
         return null;

@@ -15,7 +15,6 @@ public class LaunchRequestHandler extends IntentHandler  {
 
     @Override
     public boolean canHandle(HandlerInput input) {
-        log.info("Request can be handled by LaunchRequestHandler");
         return input.matches(requestType(LaunchRequest.class));
     }
 
