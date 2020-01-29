@@ -23,7 +23,7 @@ public class HelpIntentHandler implements RequestHandler {
         return handlerInput.getResponseBuilder()
                 .withSpeech(speechtext)
                 .withSimpleCard("Spin2Time", speechtext)
-                .withReprompt(speechtext)
+                .withReprompt("Probieren sie mal zu Sagen, Alexa wie lange hat Benutzername diesen Monat gearbeitet.")
                 .build();
     }
 }
