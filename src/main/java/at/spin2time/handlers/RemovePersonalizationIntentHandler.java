@@ -1,13 +1,22 @@
 package at.spin2time.handlers;
 
+import com.amazon.ask.dispatcher.request.handler.HandlerInput;
 import com.amazon.ask.model.Response;
 
 import java.util.Optional;
+
+import static com.amazon.ask.request.Predicates.intentName;
 
 /**
  * Handler to remove the relation between the users S2T-Account and his voiceprofile
  */
 public class RemovePersonalizationIntentHandler extends IntentHandler {
+
+
+    @Override
+    public boolean canHandle(HandlerInput input) {
+        return input.matches(intentName("RemovePersonalizationIntent"));
+    }
 
     /**
      * Method to get the requested intents name
@@ -24,8 +33,8 @@ public class RemovePersonalizationIntentHandler extends IntentHandler {
     @Override
     public Optional<Response> handleWithoutPersInfo() {
         return handlerInput.getResponseBuilder()
-                .withSpeech("Sie haben kein Voice-Profil angelegt oder Sie haben noch kein Stimmprofil angelegt.. Die Verbindung konnte nicht gelöscht werden.")
-                .withSimpleCard("Verbindung fehlgeschlagen", "Kein Stimmprofil erkannt..")
+                .withSpeech("Sie haben noch kein Stimmprofil angelegt. Die Verbindung konnte nicht gelöscht werden.")
+                .withSimpleCard("Entfernen fehlgeschlagen", "Kein Stimmprofil erkannt..")
                 .withShouldEndSession(false)
                 .build();
     }
@@ -41,28 +50,21 @@ public class RemovePersonalizationIntentHandler extends IntentHandler {
         ConnectionClass cc = new ConnectionClass();
         String username = cc.getUserFromVoiceId(personId);
 
-        if(!cc.userExists(username)){
+        if(cc.removeVoiceProfile(username)) {
             return handlerInput.getResponseBuilder()
-                    .withSpeech("Leider habe ich Ihre Stimme nicht erkannt.")
+                    .withSpeech("Ihr Stimmprofil wurde erfolgreich von Ihrem Benutzerkonto entfernt.")
+                    .withSimpleCard("Entfernen erfolgreich", "Stimmprofil wurde aus Ihrem Benutzerkonto entfernt.")
                     .withShouldEndSession(false)
                     .build();
         }
         else{
-            if(cc.removeVoiceProfile(username)) {
-                return handlerInput.getResponseBuilder()
-                        .withSpeech("Ihr Stimmprofil wurde erfolgreich von Ihrem Benutzerkonto entfernt.")
-                        .withSimpleCard("Entfernen erfolgreich", "Stimmprofil wurde aus Ihrem Benutzerkonto entfernt.")
-                        .withShouldEndSession(false)
-                        .build();
-            }
-            else{
-                return handlerInput.getResponseBuilder()
-                        .withSpeech("Leider ist beim entfernen Ihres Stimmprofils ein Fehler aufgetreten. Versuchen Sie es später erneut. ")
-                        .withSimpleCard("Entfernen fehlgeschlagen","Ihr Stimmprofil konnte leider nicht von Ihrem S2T-Account entfernt werden.")
-                        .withShouldEndSession(true)
-                        .build();
-            }
+            return handlerInput.getResponseBuilder()
+                    .withSpeech("Leider ist beim Entfernen Ihres Stimmprofils ein Fehler aufgetreten. Versuchen Sie es später erneut. ")
+                    .withSimpleCard("Entfernen fehlgeschlagen","Ihr Stimmprofil konnte leider nicht von Ihrem S2T-Account entfernt werden.")
+                    .withShouldEndSession(true)
+                    .build();
         }
+
     }
 
 }

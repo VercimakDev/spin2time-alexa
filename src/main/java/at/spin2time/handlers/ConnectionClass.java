@@ -144,12 +144,16 @@ public class ConnectionClass {
      * @return username related to the personalized request
      */
     public String getUserFromVoiceId(String personId){
-        List list = selectQueryBuilder("select u_username from u_users where u_voiceid = '"+personId+"'");
-        if(list.isEmpty()){
-            return null;
+        if(personId != null) {
+            List list = selectQueryBuilder("select u_username from u_users where u_voiceid = '" + personId + "'");
+            if (list.isEmpty()) {
+                return null;
+            } else {
+                return list.get(0).toString();
+            }
         }
         else{
-            return list.get(0).toString();
+            return null;
         }
     }
 
@@ -176,20 +180,25 @@ public class ConnectionClass {
      * @return true - if successful, false - if not successful
      */
     public boolean removeVoiceProfile(String username){
-        if(userExists(username)){
-            if(hasPersonId(username)){
-                boolean rs = false;
-                try (Statement st = connect()) {
-                    rs = st.execute("update u_users set u_voiceid = null where u_username='"+username+"';");
-                    st.close();
+        if(username != null) {
+            if (userExists(username)) {
+                if (hasPersonId(username)) {
+                    boolean rs = false;
+                    try (Statement st = connect()) {
+                        rs = st.execute("update u_users set u_voiceid = null where u_username='" + username + "';");
+                        st.close();
+                        return rs;
+                    } catch (SQLException e) {
+                        log.error("An exception occured in removeVoiceProfile method");
+                        S2TRuntimeException exception = new S2TRuntimeException("Bei dem Updatestatement" +
+                                " ist ein Fehler aufgetreten");
+                    }
                     return rs;
-                } catch (SQLException e) {
-                    log.error("An exception occured in removeVoiceProfile method");
-                    S2TRuntimeException exception = new S2TRuntimeException("Bei dem Updatestatement" +
-                            " ist ein Fehler aufgetreten");
                 }
-                return rs;
             }
+        }
+        else{
+            return false;
         }
         return false;
     }
