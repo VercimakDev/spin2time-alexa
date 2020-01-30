@@ -8,7 +8,7 @@ import java.sql.Connection;
 public class TestCurrentTime {
 
     @Test
-    public void TestIdeal() {
+    public void testIdeal() {
         ConnectionClass connection = new ConnectionClass();
         TimeManagmentClass time = new TimeManagmentClass();
         String timedata = time.getHourAgo();
@@ -17,13 +17,13 @@ public class TestCurrentTime {
         Assert.assertEquals("[Sie haben 1 Stunden und 0 Minuten gearbeitet]", connection.getTimeWorkedTillNow("test"));;
     }
     @Test
-    public void TestNoUser() {
+    public void testNoUser() {
         ConnectionClass connection = new ConnectionClass();
         connection.getTimeWorkedTillNow("random123");
         Assert.assertEquals("[null]",connection.getTimeWorkedTillNow("random123"));
     }
     @Test
-    public void TestNoRunningEntry() {
+    public void testNoRunningEntry() {
         ConnectionClass connection = new ConnectionClass();
         TimeManagmentClass time = new TimeManagmentClass();
         String timedata = time.getNow();
