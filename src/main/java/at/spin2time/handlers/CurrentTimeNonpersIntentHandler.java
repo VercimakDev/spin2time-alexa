@@ -58,7 +58,7 @@ public class CurrentTimeNonpersIntentHandler extends IntentHandler {
     @Override
     public Optional<Response> handleWithPersInfo(String personId) {
         ConnectionClass c = new ConnectionClass();
-        String username = c.getUserFromVoiceId(personId);
+        String username = getUsernameFromRequest();
         /**
          * We have to check if the user exists
          */

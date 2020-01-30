@@ -14,7 +14,8 @@ public class TestCurrentTime {
         String timedata = time.getHourAgo();
         connection.stopTimeTracking("test",time.getNow());
         connection.startTimeTracking("test",timedata,"1");
-        Assert.assertEquals("[Sie haben 1 Stunden und 0 Minuten gearbeitet]", connection.getTimeWorkedTillNow("test"));;
+        Assert.assertEquals("[Sie haben 1 Stunden und 0 Minuten gearbeitet]", connection.getTimeWorkedTillNow("test"));
+        connection.stopTimeTracking("test",time.getNow());
     }
     @Test
     public void testNoUser() {

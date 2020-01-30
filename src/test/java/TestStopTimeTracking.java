@@ -65,5 +65,6 @@ public class TestStopTimeTracking {
         TimeManagmentClass time = new TimeManagmentClass();
         connection.insertQueryBuilder("insert into wt_worktable values(null,1,'2019-10-25 00:00:00',null,6,null);");
         Assert.assertEquals(true,connection.checkDoubleEntry("test"));
+        connection.stopTimeTracking("test",time.getNow());
     }
 }
