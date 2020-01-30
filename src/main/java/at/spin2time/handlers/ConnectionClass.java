@@ -191,4 +191,9 @@ public class ConnectionClass {
         return text;
     }
 
+    public List getUserProjects(String name) {
+        String userid = selectQueryBuilder("select u_id from u_users where u_username = '"+name+"'").get(0).toString();
+        List projects = selectQueryBuilder("SELECT p_id FROM p_projects JOIN pm_projectmembers ON p_id = pm_p_id WHERE pm_u_id ="+userid);
+        return projects;
+    }
 }

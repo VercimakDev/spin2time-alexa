@@ -39,8 +39,7 @@ public class ListProjectsIntentHandler implements IntentRequestHandler {
         List projects;
         String res = "";
         if(cc.userExists(username)){
-            String userid = cc.selectQueryBuilder("select u_id from u_users where u_username = '"+username+"'").get(0).toString();
-            projects = cc.selectQueryBuilder("SELECT p_id FROM p_projects JOIN pm_projectmembers ON p_id = pm_p_id WHERE pm_u_id ="+userid);
+            projects = getAllProjects(username);
             if(!projects.isEmpty()) {
                 res += "Der Benutzer "+username+" ist bei folgenden Projekten Mitglied: ";
                 for (Object o : projects) {
@@ -58,5 +57,8 @@ public class ListProjectsIntentHandler implements IntentRequestHandler {
             return res;
         }
     }
-
+    public List getAllProjects(String username) {
+        ConnectionClass connection = new ConnectionClass();
+        return connection.getUserProjects(username);
+    }
 }
