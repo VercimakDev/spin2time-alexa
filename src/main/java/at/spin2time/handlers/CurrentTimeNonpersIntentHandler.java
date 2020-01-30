@@ -14,11 +14,11 @@ import static com.amazon.ask.request.Predicates.intentName;
 public class CurrentTimeNonpersIntentHandler extends IntentHandler {
     @Override
     public boolean canHandle(HandlerInput input) {
-        return input.matches(intentName("CurrentTimeNonersIntent"));
+        return input.matches(intentName("CurrentTimeNonpersIntent"));
     }
     @Override
     public String getIntentRequestName() {
-        return "CurrentTimeNonersIntent";
+        return "CurrentTimeNonpersIntent";
     }
 
     @Override
