@@ -41,7 +41,7 @@ public abstract class IntentHandler extends BaseHandler{
 
     private String personalizationInitialization(){
         this.personalizationInfo = PersonalizationExtractor.extractPersonalizationInfoFromRequest(handlerInput);
-        addOrUpdateSessionAttribute(PRINCIPLE_ID, personalizationInfo.getPrincipleId());
+        //addOrUpdateSessionAttribute(PRINCIPLE_ID, personalizationInfo.getPrincipleId());
 
         //log.info("Personalization status: "+personalizationInfo);
         if(personalizationInfo.isPersonalized()){
