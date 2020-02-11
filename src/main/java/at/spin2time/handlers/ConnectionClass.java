@@ -185,7 +185,8 @@ public class ConnectionClass {
                 if (hasPersonId(username)) {
                     boolean rs = false;
                     try (Statement st = connect()) {
-                        rs = st.execute("update u_users set u_voiceid = null where u_username='" + username + "';");
+                        st.execute("update u_users set u_voiceid = null where u_username='" + username + "';");
+                        rs = st.execute("Select exists (Select * from u_users where u_username = \"konsti\" and u_voiceid IS NULL);");
                         st.close();
                         return rs;
                     } catch (SQLException e) {
