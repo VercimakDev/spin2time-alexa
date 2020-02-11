@@ -5,6 +5,9 @@ import com.amazon.ask.Skill;
 import com.amazon.ask.SkillStreamHandler;
 import com.amazon.ask.Skills;
 
+/**
+ * This class initializes the RequestHandlers and adds the skill-id
+ */
 public class Spin2TimeStreamHandler extends SkillStreamHandler {
 
     private static Skill getSkill(){
@@ -17,6 +20,7 @@ public class Spin2TimeStreamHandler extends SkillStreamHandler {
                     new SessionEndedRequestHandler(),
                     new StartPersTimeTrackingIntentHandler(),
                     new StopNonpersTimeTrackingIntentHandler(),
+                    new RemovePersonalizationIntentHandler(),
                     new StopPersTimeTrackingIntentHandler(),
                         new CurrentTimeIntentHandler(),
                         new PersonalizationIntentHandler(),

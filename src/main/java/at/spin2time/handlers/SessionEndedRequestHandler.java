@@ -19,6 +19,7 @@ public class SessionEndedRequestHandler implements RequestHandler {
     @Override
     public Optional<Response> handle(HandlerInput handlerInput) {
         return handlerInput.getResponseBuilder()
+                .withSpeech("Skill-Session beendet.")
                 .build();
     }
 

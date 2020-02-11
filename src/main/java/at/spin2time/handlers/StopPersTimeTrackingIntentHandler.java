@@ -31,7 +31,7 @@ public class StopPersTimeTrackingIntentHandler extends IntentHandler {
         return handlerInput.getResponseBuilder()
                 .withShouldEndSession(false)
                 .withSpeech("Um diese Funktion zu nutzen muessen Sie Ihren Nutzernamen angeben oder ein Voice-Profil erstellen.")
-                .withReprompt("Versuchen Sie beispielsweise: 'Hannes geht jetzt'")
+                .withReprompt("Versuchen Sie beispielsweise: 'Hannes geht jetzt nach Hause'")
                 .build();
     }
 
@@ -55,7 +55,7 @@ public class StopPersTimeTrackingIntentHandler extends IntentHandler {
         else {
             stopTimetracking(username);
             return handlerInput.getResponseBuilder()
-                    .withSpeech(username + ", ich wuensche Ihnen einen entspannten Feierabend!")
+                    .withSpeech("Ich wuensche Ihnen einen entspannten Feierabend, "+username+"!")
                     .withSimpleCard("Spin2Time", "Zeitaufzeichnung für " + username + " erfolgreich beendet")
                     .build();
         }

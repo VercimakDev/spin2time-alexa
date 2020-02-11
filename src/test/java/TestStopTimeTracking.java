@@ -23,6 +23,7 @@ public class TestStopTimeTracking {
                 "Order by wt_id DESC\n" +
                 "Limit 1;");
         Assert.assertEquals(data.get(0), timedata );
+        connection.stopTimeTracking("test",time.getNow());
     }
     @Test
     public void testSuchUser() {
@@ -37,6 +38,7 @@ public class TestStopTimeTracking {
             result = true;
         }
         Assert.assertEquals(true, result);
+        connection.stopTimeTracking("test",time.getNow());
     }
     @Test
     public void testNoSuchUser() {
@@ -51,6 +53,7 @@ public class TestStopTimeTracking {
             result = true;
         }
         Assert.assertEquals(false, result);
+        connection.stopTimeTracking("test",time.getNow());
     }
     @Test
     public void noOpenTimeEntry() {

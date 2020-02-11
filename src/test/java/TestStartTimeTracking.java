@@ -23,7 +23,8 @@ public class TestStartTimeTracking {
                 "Order by wt_id DESC\n" +
                 "Limit 1;");
         Assert.assertEquals(data.get(0), timedata );
-        connection.stopTimeTracking("test",timedata);
+
+        connection.stopTimeTracking("test",time.getNow());
     }
 
     @Test
@@ -36,6 +37,7 @@ public class TestStartTimeTracking {
             result = true;
         }
         Assert.assertEquals(true,result);
+        connection.stopTimeTracking("test",time.getNow());
     }
 
     @Test
@@ -59,6 +61,7 @@ public class TestStartTimeTracking {
             result = true;
         }
         Assert.assertEquals(true,result);
+        connection.stopTimeTracking("test",time.getNow());
     }
 
     @Test
