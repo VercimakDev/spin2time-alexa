@@ -44,10 +44,10 @@ public class PersonalizationExtractor {
                 .filter(StringUtils::isNotBlank)
                 .map((pid) -> {
                     log.info("PersonID is: "+pid);
-                    return new PersonalizationInfo(pid, userId, pid, true);
+                    return new PersonalizationInfo(null, userId, pid, true);
                 }).orElseGet(() -> {
                     log.info("PersonID does not exist, using userID as principleID");
-                    return new PersonalizationInfo(userId, userId, StringUtils.EMPTY, false);
+                    return new PersonalizationInfo(null, userId, StringUtils.EMPTY, false);
                 });
     }
 }

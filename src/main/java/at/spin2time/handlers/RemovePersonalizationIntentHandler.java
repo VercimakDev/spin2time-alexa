@@ -52,7 +52,7 @@ public class RemovePersonalizationIntentHandler extends IntentHandler {
 
         if(cc.removeVoiceProfile(username)) {
             return handlerInput.getResponseBuilder()
-                    .withSpeech("Ihr Stimmprofil wurde erfolgreich von Ihrem Benutzerkonto entfernt.")
+                    .withSpeech("Das Stimmprofil von "+username+" wurde erfolgreich vom Spin2Time Account gelöscht.")
                     .withSimpleCard("Entfernen erfolgreich", "Stimmprofil wurde aus Ihrem Benutzerkonto entfernt.")
                     .withShouldEndSession(false)
                     .build();

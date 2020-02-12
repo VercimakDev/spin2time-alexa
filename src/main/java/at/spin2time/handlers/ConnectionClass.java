@@ -165,13 +165,7 @@ public class ConnectionClass {
     public boolean projectExists(String projectid){
 
         List list = selectQueryBuilder("SELECT p_name from p_projects where p_id = "+projectid);
-        if(list.isEmpty()){
-            return false;
-        }
-        else{
-            return true;
-        }
-
+        return !list.isEmpty();
     }
 
     /**

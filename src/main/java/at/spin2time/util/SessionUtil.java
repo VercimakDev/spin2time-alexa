@@ -22,13 +22,13 @@ public class SessionUtil{
                 });
     }
 
-    public static <T> T getSessionAttribute(AttributesManager attributesManager, String key, Class<T> clazz) {
-        if (clazz == null) {
+    public static <T> T getSessionAttribute(AttributesManager attributesManager, String key, Class<T> c) {
+        if (c == null) {
             return null;
         }
         Map<String, Object> alexaSession = attributesManager.getSessionAttributes();
         try {
-            T sessionAttribute = clazz.cast(alexaSession.get(key));
+            T sessionAttribute = c.cast(alexaSession.get(key));
             return sessionAttribute;
         } catch (ClassCastException e) {
             return null;
