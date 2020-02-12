@@ -14,11 +14,11 @@ import static com.amazon.ask.request.Predicates.intentName;
 public class CurrentTimeNonpersIntentHandler extends IntentHandler {
     @Override
     public boolean canHandle(HandlerInput input) {
-        return input.matches(intentName("CurrentTimeNonersIntent"));
+        return input.matches(intentName("CurrentTimeNonpersIntent"));
     }
     @Override
     public String getIntentRequestName() {
-        return "CurrentTimeNonersIntent";
+        return "CurrentTimeNonpersIntent";
     }
 
     @Override
@@ -58,7 +58,7 @@ public class CurrentTimeNonpersIntentHandler extends IntentHandler {
     @Override
     public Optional<Response> handleWithPersInfo(String personId) {
         ConnectionClass c = new ConnectionClass();
-        String username = c.getUserFromVoiceId(personId);
+        String username = getUsernameFromRequest();
         /**
          * We have to check if the user exists
          */

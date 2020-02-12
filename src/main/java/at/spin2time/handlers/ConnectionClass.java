@@ -179,7 +179,8 @@ public class ConnectionClass {
                 if (hasPersonId(username)) {
                     boolean rs = false;
                     try (Statement st = connect()) {
-                        rs = st.execute("update u_users set u_voiceid = null where u_username='" + username + "';");
+                        st.execute("update u_users set u_voiceid = null where u_username='" + username + "';");
+                        rs = st.execute("Select exists (Select * from u_users where u_username = \"konsti\" and u_voiceid IS NULL);");
                         st.close();
                         return rs;
                     } catch (SQLException e) {
@@ -288,4 +289,9 @@ public class ConnectionClass {
         return text;
     }
 
+    public List getUserProjects(String name) {
+        String userid = selectQueryBuilder("select u_id from u_users where u_username = '"+name+"'").get(0).toString();
+        List projects = selectQueryBuilder("SELECT p_id FROM p_projects JOIN pm_projectmembers ON p_id = pm_p_id WHERE pm_u_id ="+userid);
+        return projects;
+    }
 }

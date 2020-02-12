@@ -8,22 +8,23 @@ import java.sql.Connection;
 public class TestCurrentTime {
 
     @Test
-    public void TestIdeal() {
+    public void testIdeal() {
         ConnectionClass connection = new ConnectionClass();
         TimeManagmentClass time = new TimeManagmentClass();
         String timedata = time.getHourAgo();
         connection.stopTimeTracking("test",time.getNow());
         connection.startTimeTracking("test",timedata,"1");
-        Assert.assertEquals("[Sie haben 1 Stunden und 0 Minuten gearbeitet]", connection.getTimeWorkedTillNow("test"));;
+        Assert.assertEquals("[Sie haben 1 Stunden und 0 Minuten gearbeitet]", connection.getTimeWorkedTillNow("test"));
+        connection.stopTimeTracking("test",time.getNow());
     }
     @Test
-    public void TestNoUser() {
+    public void testNoUser() {
         ConnectionClass connection = new ConnectionClass();
         connection.getTimeWorkedTillNow("random123");
         Assert.assertEquals("[null]",connection.getTimeWorkedTillNow("random123"));
     }
     @Test
-    public void TestNoRunningEntry() {
+    public void testNoRunningEntry() {
         ConnectionClass connection = new ConnectionClass();
         TimeManagmentClass time = new TimeManagmentClass();
         String timedata = time.getNow();

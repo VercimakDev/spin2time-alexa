@@ -1,8 +1,6 @@
 package at.spin2time.handlers;
 
 import com.amazon.ask.dispatcher.request.handler.HandlerInput;
-import com.amazon.ask.dispatcher.request.handler.impl.IntentRequestHandler;
-import com.amazon.ask.model.Intent;
 import com.amazon.ask.model.IntentRequest;
 import com.amazon.ask.model.Response;
 
@@ -11,36 +9,42 @@ import java.util.Optional;
 
 import static com.amazon.ask.request.Predicates.intentName;
 
-public class ListProjectsIntentHandler implements IntentRequestHandler {
-
+public class ListProjectPersIntent extends IntentHandler {
     ConnectionClass cc = new ConnectionClass();
-
-    @Override
     public boolean canHandle(HandlerInput input, IntentRequest intentRequest) {
-        return input.matches(intentName("ListProjectsIntent"));
+        return input.matches(intentName("ListProjectPersIntent"));
+    }
+    @Override
+    public String getIntentRequestName() {
+        return "ListProjectPersIntent";
     }
 
     @Override
-    public Optional<Response> handle(HandlerInput input, IntentRequest intentRequest) {
+    public Optional<Response> handleWithoutPersInfo() {
 
-        Intent intent = intentRequest.getIntent();
+        return handlerInput.getResponseBuilder()
+                .withShouldEndSession(false)
+                .withSpeech("Um diese Funktion zu nutzen, muessen Sie einen Nutzernamen angeben oder ein Voice-Profil erstellen.")
+                .withReprompt("Versuchen Sie beispielsweise: 'Hannes arbeitet jetzt'")
+                .build();
 
-        String username = intent.getSlots().get("name").getValue();
+    }
 
-        String speechtext = getProjects(username);
+    @Override
+    public Optional<Response> handleWithPersInfo(String personId) {
+        String speechtext = getProjects(personId);
 
-        return input.getResponseBuilder()
+        return handlerInput.getResponseBuilder()
                 .withSpeech(speechtext)
                 .withSimpleCard("Spin2Time", speechtext)
                 .build();
     }
-
-    private String getProjects(String username){
+    private String getProjects(String personId){
+        String username = cc.getUserFromVoiceId(personId);
         List projects;
         String res = "";
         if(cc.userExists(username)){
-            String userid = cc.selectQueryBuilder("select u_id from u_users where u_username = '"+username+"'").get(0).toString();
-            projects = cc.selectQueryBuilder("SELECT p_id FROM p_projects JOIN pm_projectmembers ON p_id = pm_p_id WHERE pm_u_id ="+userid);
+            projects = getAllProjects(username);
             if(!projects.isEmpty()) {
                 res += "Der Benutzer "+username+" ist bei folgenden Projekten Mitglied: ";
                 for (Object o : projects) {
@@ -58,5 +62,8 @@ public class ListProjectsIntentHandler implements IntentRequestHandler {
             return res;
         }
     }
-
+    public List getAllProjects(String username) {
+        ConnectionClass connection = new ConnectionClass();
+        return connection.getUserProjects(username);
+    }
 }

@@ -22,13 +22,14 @@ public class Spin2TimeStreamHandler extends SkillStreamHandler {
                     new StopNonpersTimeTrackingIntentHandler(),
                     new RemovePersonalizationIntentHandler(),
                     new StopPersTimeTrackingIntentHandler(),
-                        new ListProjectsIntentHandler(),
                         new CurrentTimeIntentHandler(),
                         new PersonalizationIntentHandler(),
                     new MonthTimeIntentHandler(),
                     new StartNonpersTimeTrackingIntentHandler(),
                     new CurrentTimeNonpersIntentHandler(),
                     new CurrentTimePersIntentHandler(),
+                    new ListProjectPersIntent(),
+                    new ListProjectNopersIntentHandler(),
                     new UnknownRequestHandler())
                 .build();
     }

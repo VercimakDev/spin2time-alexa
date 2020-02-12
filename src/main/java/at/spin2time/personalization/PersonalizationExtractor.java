@@ -33,7 +33,7 @@ public class PersonalizationExtractor {
         final String userId = handlerInput.getRequestEnvelope().getSession().getUser().toString();
         final String principleId = SessionUtil.getSessionAttribute(handlerInput.getAttributesManager(), PRINCIPLE_ID, String.class);
         if(StringUtils.isNotBlank(principleId)){
-            return new PersonalizationInfo(principleId, userId, principleId, principleId.startsWith(PERSONID_PREFIX));
+            return new PersonalizationInfo(principleId, principleId, userId, principleId.startsWith(PERSONID_PREFIX));
         }
         return Optional.of(handlerInput)
                 .map(HandlerInput::getRequestEnvelope)
@@ -44,7 +44,7 @@ public class PersonalizationExtractor {
                 .filter(StringUtils::isNotBlank)
                 .map((pid) -> {
                     log.info("PersonID is: "+pid);
-                    return new PersonalizationInfo(null, userId, pid, true);
+                    return new PersonalizationInfo(pid, pid, userId, true);
                 }).orElseGet(() -> {
                     log.info("PersonID does not exist, using userID as principleID");
                     return new PersonalizationInfo(null, userId, StringUtils.EMPTY, false);
